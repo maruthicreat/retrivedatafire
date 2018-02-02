@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "529551671381",
+    "firebase_url": "https://retrivedatafire.firebaseio.com",
+    "project_id": "retrivedatafire",
+    "storage_bucket": "retrivedatafire.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:529551671381:android:7a7d5e77864c3d83",
+        "android_client_info": {
+          "package_name": "com.example.maruthiraja.retrivedatafire"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "529551671381-9lj0g20q648q9pift60qb8i56oc4raad.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.maruthiraja.retrivedatafire",
+            "certificate_hash": "1c1c931ea8213506632e206c903fd8fbabb5c441"
+          }
+        },
+        {
+          "client_id": "529551671381-67ev2p62869b773ku0g5ena7md104a13.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyClb3JraUEH34dzJjx92WHe7nBVRE0Bmjo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "529551671381-67ev2p62869b773ku0g5ena7md104a13.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
