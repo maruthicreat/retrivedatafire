@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "529551671381-biuob7953l99rqkhum1kgv3sq9pddf5s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.maruthiraja.retrivedatafire",
+            "certificate_hash": "6882e4f2fbfd0988cfe8fc712b76eda312cf4036"
+          }
+        },
+        {
           "client_id": "529551671381-9lj0g20q648q9pift60qb8i56oc4raad.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
