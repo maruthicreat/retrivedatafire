@@ -7,13 +7,13 @@
     <string name="mail_id">Email Id</string>
     <string name="user_id">User Id</string>
     <string name="password">Password</string>
-    <string name="customersignup">SIGNUP</string>
-    <string name="shopkeepsignup">SIGNUP</string>
+    <string name="customersignup">SIGN UP</string>
+    <string name="shopkeepsignup">SIGN UP</string>
     <string name="mail_idshop">Mail Id</string>
     <string name="user_id_shop">User Id</string>
     <string name="shopkeeper_signup">SHOPKEEPER SIGNUP</string>
     <string name="customer_signup">CUSTOMER SIGNUP</string>
-    <string name="signup">SIGNUP</string>
+    <string name="signup">SIGN UP</string>
     <string name="title_activity_main2">Main2Activity</string>
     <string name="title_activity_user_firstpage">user_firstpage</string>
 

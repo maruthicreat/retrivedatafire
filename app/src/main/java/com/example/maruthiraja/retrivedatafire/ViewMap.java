@@ -19,7 +19,7 @@ import com.google.firebase.database.ValueEventListener;
 public class ViewMap extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-    DatabaseReference myRef;
+    private DatabaseReference myRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,19 +30,10 @@ public class ViewMap extends FragmentActivity implements OnMapReadyCallback {
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://shopkeeperapp-7d95b.firebaseio.com/");
-        myRef = database.getReference("/ShopkeeperSignup/VZ3SpQH4KgTdbc4pHcK6nXhvPB52/latitude");
+        myRef = database.getReference("ShopkeeperSignup");
     }
 
 
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
@@ -52,9 +43,24 @@ public class ViewMap extends FragmentActivity implements OnMapReadyCallback {
 
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                String value = dataSnapshot.getValue(String.class);
-                System.out.println(value);
-                Toast.makeText(ViewMap.this, value, Toast.LENGTH_SHORT).show();
+                //String value = dataSnapshot.getValue(String.class);
+                //System.out.println(value);
+                Toast.makeText(ViewMap.this, "Map entry", Toast.LENGTH_SHORT).show();
+                for (DataSnapshot ds : dataSnapshot.getChildren())
+                {
+                    String Uid = ds.getKey().toString();
+                    System.out.println("userid = "+Uid);
+                    String shopName = ds.child("shop_name").getValue().toString();
+                    double lat = Double.parseDouble(ds.child("latitude").getValue().toString());
+                    double log = Double.parseDouble(ds.child("longitude").getValue().toString());
+                    System.out.println("latitude  = "+ds.child("latitude").getValue().toString());
+                    System.out.println("longitude  = "+ds.child("longitude").getValue().toString());
+                    LatLng tamil = new LatLng(lat, log);
+                    mMap.addMarker(new MarkerOptions().position(tamil).title(shopName));
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(tamil));
+                }
+                //double latitude = Double.parseDouble(value);
+               // Toast.makeText(ViewMap.this, value, Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -66,8 +72,8 @@ public class ViewMap extends FragmentActivity implements OnMapReadyCallback {
 
 
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+      //  LatLng sydney = new LatLng(-34, 151);
+        //mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+       // mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
     }
 }
