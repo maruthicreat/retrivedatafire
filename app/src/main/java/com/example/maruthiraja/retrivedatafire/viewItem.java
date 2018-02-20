@@ -1,7 +1,10 @@
 package com.example.maruthiraja.retrivedatafire;
 
+import android.content.Context;
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -16,6 +19,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,14 +31,18 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.miguelcatalan.materialsearchview.MaterialSearchView;
+import com.squareup.picasso.Picasso;
 
 public class viewItem extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private FirebaseAuth mAuth;
     private RecyclerView mList;
+    private MaterialSearchView searchView;
     private FirebaseAuth.AuthStateListener mAuthListener;
     DatabaseReference myRef;
+    boolean doubleBackToExitPressedOnce = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +55,7 @@ public class viewItem extends AppCompatActivity
         mList.setHasFixedSize(true);
         mList.setLayoutManager(new LinearLayoutManager(this));
         mAuth = FirebaseAuth.getInstance();
+        searchView = (MaterialSearchView) findViewById(R.id.search_view);
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -117,6 +126,7 @@ public class viewItem extends AppCompatActivity
                 viewHolder.setTitle(model.getTitle());
                 viewHolder.setDescription(model.getDescription());
                 viewHolder.setPrice(model.getPrice());
+                viewHolder.setImage(getApplicationContext(),model.getImage());
             }
         };
 
@@ -147,6 +157,11 @@ public class viewItem extends AppCompatActivity
             TextView textprice = (TextView) mview.findViewById(R.id.itemprice);
             textprice.setText(price);
         }
+        public void setImage(Context ctx,String image)
+        {
+            ImageView img = (ImageView) mview.findViewById(R.id.postimage);
+            Picasso.with(ctx).load(image).into(img);
+        }
 
     }
 
@@ -156,7 +171,22 @@ public class viewItem extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            if (doubleBackToExitPressedOnce) {
+                super.onBackPressed();
+                // Toast.makeText(this, "finish all activity", Toast.LENGTH_SHORT).show();
+                finish();
+                return;
+            }
+            this.doubleBackToExitPressedOnce = true;
+            Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+
+            new Handler().postDelayed(new Runnable() {
+
+                @Override
+                public void run() {
+                    doubleBackToExitPressedOnce=false;
+                }
+            }, 2000);
         }
     }
 
@@ -194,7 +224,7 @@ public class viewItem extends AppCompatActivity
             // Handle the camera action
         } else if (id == R.id.cart) {
 
-        } else if (id == R.id.notification) {
+        } else if (id == R.id.orders) {
 
         } else if (id == R.id.account) {
 

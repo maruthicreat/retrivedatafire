@@ -11,7 +11,7 @@ public class Getdata {
     private String title;
     public Getdata()
     {
-        
+
     }
 
     public Getdata(String description, String image, String price, String title) {

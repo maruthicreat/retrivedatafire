@@ -14,9 +14,9 @@
             android:icon="@mipmap/ic_shopping_cart_black_24dp"
             android:title="Cart" />
         <item
-            android:id="@+id/notification"
-            android:icon="@mipmap/ic_notifications_black_24dp"
-            android:title="Notification" />
+            android:id="@+id/orders"
+            android:icon="@mipmap/ic_shopping_basket_black_24dp"
+            android:title="My Orders" />
         <item
             android:id="@+id/account"
             android:icon="@mipmap/ic_account_circle_black_24dp"
