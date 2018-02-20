@@ -51,15 +51,23 @@ public class viewItem extends AppCompatActivity
         };
 
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://shopkeeperapp-7d95b.firebaseio.com/");
-        myRef = database.getReference("/Blog/-L5-QI33i4ORhz9zFDyW/title");
+        myRef = database.getReference("shop_details");
 
         myRef.addValueEventListener(new ValueEventListener() {
 
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                String value = dataSnapshot.getValue(String.class);
-                System.out.println(value);
-                Toast.makeText(viewItem.this, value, Toast.LENGTH_SHORT).show();
+
+                for (DataSnapshot ds : dataSnapshot.getChildren())
+                {
+                    String key = ds.getKey();
+                    String description = ds.child("description").getValue().toString();
+                    Toast.makeText(viewItem.this, description, Toast.LENGTH_SHORT).show();
+                }
+
+                //String value = dataSnapshot.getValue(String.class);
+                //System.out.println(value);
+               // Toast.makeText(viewItem.this, value, Toast.LENGTH_SHORT).show();
             }
 
             @Override

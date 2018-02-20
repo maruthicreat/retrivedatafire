@@ -8,4 +8,11 @@
     tools:context="com.example.maruthiraja.retrivedatafire.viewItem"
     tools:showIn="@layout/app_bar_view_item">
 
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/itemRecycler">
+
+    </android.support.v7.widget.RecyclerView>
+
 </android.support.constraint.ConstraintLayout>
