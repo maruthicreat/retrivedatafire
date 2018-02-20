@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -15,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -30,6 +32,7 @@ public class viewItem extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private FirebaseAuth mAuth;
+    private RecyclerView mList;
     private FirebaseAuth.AuthStateListener mAuthListener;
     DatabaseReference myRef;
 
@@ -40,7 +43,9 @@ public class viewItem extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
+        mList =(RecyclerView)findViewById(R.id.itemRecycler);
+        mList.setHasFixedSize(true);
+        mList.setLayoutManager(new LinearLayoutManager(this));
         mAuth = FirebaseAuth.getInstance();
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
@@ -55,6 +60,7 @@ public class viewItem extends AppCompatActivity
 
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://shopkeeperapp-7d95b.firebaseio.com/");
         myRef = database.getReference("shop_details");
+        myRef.keepSynced(true);
 
         myRef.addValueEventListener(new ValueEventListener() {
 
@@ -108,9 +114,13 @@ public class viewItem extends AppCompatActivity
         ) {
             @Override
             protected void populateViewHolder(Holder viewHolder, Getdata model, int position) {
-
+                viewHolder.setTitle(model.getTitle());
+                viewHolder.setDescription(model.getDescription());
+                viewHolder.setPrice(model.getPrice());
             }
         };
+
+        mList.setAdapter(firebaseRecyclerAdapter);
 
     }
 
@@ -122,8 +132,22 @@ public class viewItem extends AppCompatActivity
             super(itemView);
             mview = itemView;
         }
+        public void setTitle(String title)
+        {
+            TextView textTitle = (TextView) mview.findViewById(R.id.itemtitle);
+            textTitle.setText(title);
+        }
+        public void setDescription(String desc)
+        {
+            TextView textdesc = (TextView) mview.findViewById(R.id.itemdescription);
+            textdesc.setText(desc);
+        }
+        public void setPrice(String price)
+        {
+            TextView textprice = (TextView) mview.findViewById(R.id.itemprice);
+            textprice.setText(price);
+        }
 
-       // public void set
     }
 
     @Override

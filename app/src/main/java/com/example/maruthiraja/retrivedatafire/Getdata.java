@@ -9,6 +9,10 @@ public class Getdata {
     private String image;
     private String price;
     private String title;
+    public Getdata()
+    {
+        
+    }
 
     public Getdata(String description, String image, String price, String title) {
 

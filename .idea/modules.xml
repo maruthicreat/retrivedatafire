@@ -3,10 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://C:\Users\MCA\AndroidStudioProjects\retrivedatafire\app\app.iml" filepath="C:\Users\MCA\AndroidStudioProjects\retrivedatafire\app\app.iml" />
       <module fileurl="file://$PROJECT_DIR$/retrivedatafire.iml" filepath="$PROJECT_DIR$/retrivedatafire.iml" />
-      <module fileurl="file://C:\Users\maruthiraja\AndroidStudioProjects\retrivedatafire\.idea\retrivedatafire.iml" filepath="C:\Users\maruthiraja\AndroidStudioProjects\retrivedatafire\.idea\retrivedatafire.iml" />
       <module fileurl="file://C:\Users\MCA\AndroidStudioProjects\retrivedatafire\retrivedatafire.iml" filepath="C:\Users\MCA\AndroidStudioProjects\retrivedatafire\retrivedatafire.iml" />
+      <module fileurl="file://C:\Users\maruthiraja\AndroidStudioProjects\retrivedatafire\.idea\retrivedatafire.iml" filepath="C:\Users\maruthiraja\AndroidStudioProjects\retrivedatafire\.idea\retrivedatafire.iml" />
     </modules>
   </component>
 </project>
