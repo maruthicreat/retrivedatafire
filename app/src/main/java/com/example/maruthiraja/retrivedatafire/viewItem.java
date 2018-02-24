@@ -20,6 +20,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,6 +41,7 @@ public class viewItem extends AppCompatActivity
     private FirebaseAuth mAuth;
     private RecyclerView mList;
     private MaterialSearchView searchView;
+    //public RatingBar ratingBar;
     private FirebaseAuth.AuthStateListener mAuthListener;
     DatabaseReference myRef;
     boolean doubleBackToExitPressedOnce = false;
@@ -50,7 +52,6 @@ public class viewItem extends AppCompatActivity
         setContentView(R.layout.activity_view_item);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         mList =(RecyclerView)findViewById(R.id.itemRecycler);
         mList.setHasFixedSize(true);
         mList.setLayoutManager(new LinearLayoutManager(this));
@@ -119,7 +120,10 @@ public class viewItem extends AppCompatActivity
         mAuth.addAuthStateListener(mAuthListener);
 
         FirebaseRecyclerAdapter<Getdata,Holder> firebaseRecyclerAdapter =new FirebaseRecyclerAdapter<Getdata, Holder>(
-                Getdata.class,R.layout.itemrow,Holder.class,myRef
+                Getdata.class,
+                R.layout.itemrow,
+                Holder.class,
+                myRef
         ) {
             @Override
             protected void populateViewHolder(Holder viewHolder, Getdata model, int position) {
@@ -127,6 +131,7 @@ public class viewItem extends AppCompatActivity
                 viewHolder.setDescription(model.getDescription());
                 viewHolder.setPrice(model.getPrice());
                 viewHolder.setImage(getApplicationContext(),model.getImage());
+                viewHolder.setRating(model.getRating());
             }
         };
 
@@ -162,7 +167,16 @@ public class viewItem extends AppCompatActivity
             ImageView img = (ImageView) mview.findViewById(R.id.postimage);
             Picasso.with(ctx).load(image).into(img);
         }
+        public void setRating(String rating)
+        {
+            RatingBar ratingBar = (RatingBar) mview.findViewById(R.id.ratingBar);
+            ratingBar.setRating(Float.parseFloat(rating));
+            System.out.println(rating);
+        }
+        public void setReview()
+        {
 
+        }
     }
 
     @Override

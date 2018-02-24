@@ -9,6 +9,9 @@ public class Getdata {
     private String image;
     private String price;
     private String title;
+    private String rating;
+    private String review;
+
     public Getdata()
     {
 
@@ -21,6 +24,23 @@ public class Getdata {
         this.price = price;
         this.title = title;
     }
+
+    public String getRating() {
+        return rating;
+    }
+
+    public void setRating(String rating) {
+        this.rating = rating;
+    }
+
+    public String getReview() {
+        return review;
+    }
+
+    public void setReview(String review) {
+        this.review = review;
+    }
+
 
     public String getDescription() {
         return description;
