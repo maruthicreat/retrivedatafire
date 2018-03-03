@@ -19,6 +19,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -35,16 +36,20 @@ import com.google.firebase.database.ValueEventListener;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class viewItem extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private FirebaseAuth mAuth;
     private RecyclerView mList;
     private MaterialSearchView searchView;
-    //public RatingBar ratingBar;
+    public RatingBar ratingBar;
     private FirebaseAuth.AuthStateListener mAuthListener;
     DatabaseReference myRef;
     boolean doubleBackToExitPressedOnce = false;
+    private List<String> listitems ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +62,7 @@ public class viewItem extends AppCompatActivity
         mList.setLayoutManager(new LinearLayoutManager(this));
         mAuth = FirebaseAuth.getInstance();
         searchView = (MaterialSearchView) findViewById(R.id.search_view);
+        listitems = new ArrayList<String>();
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -80,8 +86,10 @@ public class viewItem extends AppCompatActivity
                 for (DataSnapshot ds : dataSnapshot.getChildren())
                 {
                     String key = ds.getKey();
-                    String description = ds.child("description").getValue().toString();
-                    Toast.makeText(viewItem.this, description, Toast.LENGTH_SHORT).show();
+                    listitems.add(ds.child("title").getValue().toString());
+                    setsuggestion(listitems);
+                    //String description = ds.child("description").getValue().toString();
+                    //Toast.makeText(viewItem.this, description, Toast.LENGTH_SHORT).show();
                 }
 
                 //String value = dataSnapshot.getValue(String.class);
@@ -119,7 +127,7 @@ public class viewItem extends AppCompatActivity
         super.onStart();
         mAuth.addAuthStateListener(mAuthListener);
 
-        FirebaseRecyclerAdapter<Getdata,Holder> firebaseRecyclerAdapter =new FirebaseRecyclerAdapter<Getdata, Holder>(
+        FirebaseRecyclerAdapter<Getdata,Holder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Getdata, Holder>(
                 Getdata.class,
                 R.layout.itemrow,
                 Holder.class,
@@ -133,10 +141,36 @@ public class viewItem extends AppCompatActivity
                 viewHolder.setImage(getApplicationContext(),model.getImage());
                 viewHolder.setRating(model.getRating());
             }
+
+            @Override
+            public Holder onCreateViewHolder(ViewGroup parent, int viewType) {
+                Holder viewHolder = super.onCreateViewHolder(parent, viewType);
+                viewHolder.setOnClickListener(new Holder.ClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        Toast.makeText(getApplicationContext(), "Item clicked at " + position, Toast.LENGTH_SHORT).show();
+                        Intent selint = new Intent(getApplicationContext(),SelectedItem.class);
+                        Intent intent = selint.putExtra("position", getRef(position).getKey());
+                        startActivity(intent);
+                    }
+
+                    @Override
+                    public void onItemLongClick(View view, int position) {
+                        Toast.makeText(getApplicationContext(), "Item long clicked at " + position, Toast.LENGTH_SHORT).show();
+                    }
+                });
+                return viewHolder;
+            }
         };
 
         mList.setAdapter(firebaseRecyclerAdapter);
 
+    }
+
+    public void setsuggestion(List<String> listitems) {
+        String listarr[] = listitems.toArray(new String[listitems.size()]);
+        // Toast.makeText(this, listarr[0], Toast.LENGTH_SHORT).show();
+        searchView.setSuggestions(listarr);
     }
 
     public static class Holder extends RecyclerView.ViewHolder
@@ -146,7 +180,35 @@ public class viewItem extends AppCompatActivity
         public Holder(View itemView) {
             super(itemView);
             mview = itemView;
+            mview.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //Toast.makeText(mview.getContext(), "you clicked me!!", Toast.LENGTH_SHORT).show();
+                    mClickListener.onItemClick(view,getAdapterPosition());
+                }
+            });
+            mview.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    // Toast.makeText(mview.getContext(), "you Long clicked me!!", Toast.LENGTH_SHORT).show();
+                    mClickListener.onItemLongClick(view,getAdapterPosition());
+                    return true;
+                }
+            });
         }
+
+        private Holder.ClickListener mClickListener;
+
+
+        public interface ClickListener{
+            public void onItemClick(View view, int position);
+            public void onItemLongClick(View view, int position);
+        }
+
+        public void setOnClickListener(Holder.ClickListener clickListener){
+            mClickListener = clickListener;
+        }
+
         public void setTitle(String title)
         {
             TextView textTitle = (TextView) mview.findViewById(R.id.itemtitle);
@@ -170,6 +232,7 @@ public class viewItem extends AppCompatActivity
         public void setRating(String rating)
         {
             RatingBar ratingBar = (RatingBar) mview.findViewById(R.id.ratingBar);
+            ratingBar.setFocusable(false);
             ratingBar.setRating(Float.parseFloat(rating));
             System.out.println(rating);
         }

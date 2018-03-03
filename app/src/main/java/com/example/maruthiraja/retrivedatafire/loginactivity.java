@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RatingBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -66,7 +67,6 @@ public class loginactivity extends AppCompatActivity {
                     if (!task.isSuccessful()) {
                         progressDialog.dismiss();
                         Toast.makeText(loginactivity.this, "Incorrect User Id or Password..!!!", Toast.LENGTH_SHORT).show();
-
                     }
                     else {
                         progressDialog.dismiss();
