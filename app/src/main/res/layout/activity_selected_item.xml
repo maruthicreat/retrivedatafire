@@ -48,7 +48,7 @@
         android:layout_marginStart="8dp"
         android:background="?android:attr/colorPrimaryDark"
         android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
+        app:theme="@style/ToolBarStyle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.529"
         app:layout_constraintStart_toStartOf="parent"
