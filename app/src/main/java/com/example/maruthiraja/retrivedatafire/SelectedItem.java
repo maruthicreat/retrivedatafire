@@ -11,6 +11,8 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -22,7 +24,8 @@ public class SelectedItem extends AppCompatActivity {
 
     Toolbar toolbar;
     String itemid;
-    private DatabaseReference mdatabase;
+    private DatabaseReference mdatabase,mdb;
+    private FirebaseUser muser;
     Button del,mod;
     ImageView imageView;
     TextView des,name,title,noofitem;
@@ -75,10 +78,20 @@ public class SelectedItem extends AppCompatActivity {
 
             }
         });
+        mod.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(SelectedItem.this, "click Cart", Toast.LENGTH_SHORT).show();
+                muser = FirebaseAuth.getInstance().getCurrentUser();
+                mdb = FirebaseDatabase.getInstance().getReference().child("cart").child(muser.getUid()).push();
+                mdb.child("itemid").setValue(itemid);
+            }
+        });
+
         del.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                
+                Toast.makeText(SelectedItem.this, "click Buy", Toast.LENGTH_SHORT).show();
             }
         });
         setSupportActionBar(toolbar);

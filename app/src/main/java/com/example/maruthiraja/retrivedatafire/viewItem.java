@@ -2,23 +2,21 @@ package com.example.maruthiraja.retrivedatafire;
 
 import android.content.Context;
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RatingBar;
@@ -26,7 +24,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.google.android.gms.common.data.DataHolder;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -49,6 +46,7 @@ public class viewItem extends AppCompatActivity
     private FirebaseAuth.AuthStateListener mAuthListener;
     DatabaseReference myRef;
     boolean doubleBackToExitPressedOnce = false;
+    StaggeredGridLayoutManager gridLayoutManager;
     private List<String> listitems ;
 
     @Override
@@ -57,9 +55,12 @@ public class viewItem extends AppCompatActivity
         setContentView(R.layout.activity_view_item);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        Toast.makeText(this, "start", Toast.LENGTH_SHORT).show();
         mList =(RecyclerView)findViewById(R.id.itemRecycler);
         mList.setHasFixedSize(true);
-        mList.setLayoutManager(new LinearLayoutManager(this));
+        gridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        mList.setLayoutManager(gridLayoutManager);
+       // mList.setLayoutManager(new LinearLayoutManager(this));
         mAuth = FirebaseAuth.getInstance();
         searchView = (MaterialSearchView) findViewById(R.id.search_view);
         listitems = new ArrayList<String>();
@@ -120,11 +121,10 @@ public class viewItem extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        insetitem();
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
+    private void insetitem() {
         mAuth.addAuthStateListener(mAuthListener);
 
         FirebaseRecyclerAdapter<Getdata,Holder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Getdata, Holder>(
@@ -164,7 +164,11 @@ public class viewItem extends AppCompatActivity
         };
 
         mList.setAdapter(firebaseRecyclerAdapter);
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
     }
 
     public void setsuggestion(List<String> listitems) {

@@ -46,7 +46,8 @@
         <activity
             android:name=".ViewMap"
             android:label="@string/title_activity_view_map" />
-        <activity android:name=".SelectedItem"></activity>
+        <activity android:name=".SelectedItem" />
+        <activity android:name=".BuyPage"></activity>
     </application>
 
 </manifest>
