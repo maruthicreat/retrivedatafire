@@ -1,7 +1,8 @@
 package com.example.maruthiraja.retrivedatafire;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
@@ -92,6 +93,7 @@ public class SelectedItem extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(SelectedItem.this, "click Buy", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(SelectedItem.this,BuyPage.class));
             }
         });
         setSupportActionBar(toolbar);

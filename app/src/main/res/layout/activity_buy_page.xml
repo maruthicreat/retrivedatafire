@@ -8,15 +8,15 @@
     tools:context="com.example.maruthiraja.retrivedatafire.BuyPage">
 
     <Button
-        android:id="@+id/CONTINUE"
+        android:id="@+id/continuebtnid"
         android:layout_width="393dp"
-        android:layout_height="wrap_content"
+        android:layout_height="57dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="592dp"
         android:backgroundTint="@android:color/holo_orange_dark"
-        android:text="Button"
+        android:text="Continue Payment"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -40,7 +40,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textView8"
+                android:id="@+id/deliveryaddrid"
                 android:layout_width="match_parent"
                 android:layout_height="77dp"
                 android:layout_marginBottom="8dp"
@@ -51,7 +51,6 @@
                 android:hint="Pick the Delivery Address On the Map"
                 android:padding="10dp"
                 android:shadowColor="@color/cardview_shadow_start_color"
-                android:shadowRadius="10dp"
                 app:layout_constraintBottom_toTopOf="@+id/addressbtn"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -102,7 +101,7 @@
                     android:text="Seller Name : " />
 
                 <ImageView
-                    android:id="@+id/imageView3"
+                    android:id="@+id/itemimageit"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_alignEnd="@+id/radioGroup"
@@ -153,7 +152,7 @@
                 </RadioGroup>
 
                 <TextView
-                    android:id="@+id/textView12"
+                    android:id="@+id/sellernameid"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignTop="@+id/textView11"
@@ -165,15 +164,15 @@
                     android:id="@+id/textView13"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/imageView3"
-                    android:layout_alignStart="@+id/imageView3"
-                    android:layout_below="@+id/imageView3"
+                    android:layout_alignLeft="@+id/itemimageit"
+                    android:layout_alignStart="@+id/itemimageit"
+                    android:layout_below="@+id/itemimageit"
                     android:layout_marginLeft="25dp"
                     android:layout_marginStart="25dp"
                     android:text="Qty : " />
 
                 <TextView
-                    android:id="@+id/textView14"
+                    android:id="@+id/qtynoid"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignBaseline="@+id/textView13"
@@ -188,13 +187,13 @@
                     android:layout_height="wrap_content"
                     android:layout_alignLeft="@+id/textView11"
                     android:layout_alignStart="@+id/textView11"
-                    android:layout_below="@+id/imageView3"
+                    android:layout_below="@+id/itemimageit"
                     android:text="₹"
                     android:textColor="@color/black"
                     android:textSize="30sp" />
 
                 <TextView
-                    android:id="@+id/textView16"
+                    android:id="@+id/itempriceid"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignBottom="@+id/textView15"
@@ -241,10 +240,51 @@
                     android:layout_alignLeft="@+id/textView18"
                     android:layout_alignStart="@+id/textView18"
                     android:layout_below="@+id/textView18"
-                    android:layout_marginTop="34dp"
+                    android:layout_marginTop="22dp"
                     android:text="Delivery"
                     android:textColor="@color/black"
                     android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/priceid"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@+id/textView19"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginEnd="14dp"
+                    android:layout_marginRight="14dp"
+                    android:text="00" />
+
+                <TextView
+                    android:id="@+id/deliverypriceid"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/textView19"
+                    android:layout_alignLeft="@+id/priceid"
+                    android:layout_alignStart="@+id/priceid"
+                    android:text="00" />
+
+                <TextView
+                    android:id="@+id/textView22"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/textView19"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignStart="@+id/textView19"
+                    android:layout_marginBottom="8dp"
+                    android:text="Amount Payable"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/totalamtid"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/textView22"
+                    android:layout_alignEnd="@+id/deliverypriceid"
+                    android:layout_alignRight="@+id/deliverypriceid"
+                    android:text="00" />
             </RelativeLayout>
 
         </LinearLayout>
