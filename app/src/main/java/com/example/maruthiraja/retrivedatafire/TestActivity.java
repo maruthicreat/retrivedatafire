@@ -2,6 +2,7 @@ package com.example.maruthiraja.retrivedatafire;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -15,7 +16,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
-public class BuyPage extends AppCompatActivity {
+public class TestActivity extends AppCompatActivity {
 
     TextView deliverystr,itemnamestr,sellernamestr,qtynostr,itempricestr,pricestr,taxamtstr,
             totalamtstr,phonestr,shopaddstr;
@@ -30,9 +31,15 @@ public class BuyPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buy_page);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+       // setContentView(R.layout.activity_buy_page);
         itemid = getIntent().getStringExtra("itemid");
 
-        Toast.makeText(this, "called", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "called", Toast.LENGTH_SHORT).show();
         deliverystr = (TextView) findViewById(R.id.deliveryaddrid);
         itemnamestr = (TextView) findViewById(R.id.itemnameid);
         sellernamestr = (TextView) findViewById(R.id.sellernameid);
@@ -60,15 +67,17 @@ public class BuyPage extends AppCompatActivity {
                     pricestr.setText(pristr);
                     qtynostr.setText("1");
                     itemnamestr.setText(titlestr);
+                    getshopid1();
                     itempricestr.setText(pristr);
-                    taxamtstr.setText((int) ((Float.parseFloat(pristr)/100)*10));
+                    taxamtstr.setText( ""+((Float.parseFloat(pristr)/100)*10));
+                    totalamtstr.setText(""+(((Float.parseFloat(pristr)/100)*10)+(Float.parseFloat(pristr))));
                     //des.setText(description);
-                   // rb.setRating(Float.parseFloat(rating));
+                    // rb.setRating(Float.parseFloat(rating));
                     Picasso.with(getApplicationContext()).load(image).centerCrop().resize(itemimg.getMeasuredWidth(),itemimg.getMeasuredHeight()).error(R.drawable.ic_broken_image_black_24dp)
                             .placeholder(R.drawable.ic_image_black_24dp).into(itemimg);
                 }catch (Exception e)
                 {
-                    Toast.makeText(BuyPage.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(BuyPage.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                     finish();
                 }
 
@@ -80,5 +89,30 @@ public class BuyPage extends AppCompatActivity {
         });
     }
 
+    public void getshopid1()
+    {
+        //Toast.makeText(this, shopid, Toast.LENGTH_SHORT).show();
+        mdb.child(shopid).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String name = (String) dataSnapshot.child("name").getValue();
+                String phone = (String) dataSnapshot.child("phone").getValue();
+                String address = (String) dataSnapshot.child("Address").getValue();
+                Toast.makeText(TestActivity.this, name+phone+address, Toast.LENGTH_SHORT).show();
+                sellernamestr.setText(name);
+                phonestr.setText(phone);
+                shopaddstr.setText(address);
+            }
 
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public void getshopid(View view)
+    {
+        Toast.makeText(this, shopid, Toast.LENGTH_SHORT).show();
+    }
 }

@@ -86,21 +86,23 @@ public class SelectedItem extends AppCompatActivity {
                 muser = FirebaseAuth.getInstance().getCurrentUser();
                 mdb = FirebaseDatabase.getInstance().getReference().child("cart").child(muser.getUid()).push();
                 mdb.child("itemid").setValue(itemid);
+                startActivity(new Intent(SelectedItem.this,BuyPage.class));
             }
         });
 
         del.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(SelectedItem.this, "click Buy", Toast.LENGTH_SHORT).show();
-                Intent selint = new Intent(SelectedItem.this,BuyPage.class);
+               // Toast.makeText(SelectedItem.this, "click Buy", Toast.LENGTH_SHORT).show();
+
+                Intent selint = new Intent(SelectedItem.this,TestActivity.class);
                 Intent intent = selint.putExtra("itemid", itemid);
                 startActivity(intent);
                 //startActivity(new Intent(SelectedItem.this,BuyPage.class));
             }
         });
         setSupportActionBar(toolbar);
-        Toast.makeText(this, itemid, Toast.LENGTH_SHORT).show();
+      //  Toast.makeText(this, itemid, Toast.LENGTH_SHORT).show();
     }
 
     @Override
