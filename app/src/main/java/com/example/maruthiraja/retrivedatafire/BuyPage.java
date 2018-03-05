@@ -17,7 +17,7 @@ import com.squareup.picasso.Picasso;
 
 public class BuyPage extends AppCompatActivity {
 
-    TextView deliverystr,itemnamestr,sellernamestr,qtynostr,itempricestr,pricestr,deliverypricestr,
+    TextView deliverystr,itemnamestr,sellernamestr,qtynostr,itempricestr,pricestr,taxamtstr,
             totalamtstr,phonestr,shopaddstr;
     Button pickaddbtn;
     ImageView itemimg;
@@ -38,7 +38,7 @@ public class BuyPage extends AppCompatActivity {
         qtynostr = (TextView) findViewById(R.id.qtynoid);
         itempricestr = (TextView) findViewById(R.id.itempriceid);
         pricestr = (TextView) findViewById(R.id.priceid);
-        deliverypricestr = (TextView) findViewById(R.id.deliverypriceid);
+        taxamtstr = (TextView) findViewById(R.id.taxamtid);
         totalamtstr = (TextView) findViewById(R.id.totalamtid);
         phonestr = (TextView) findViewById(R.id.phoneid);
         shopaddstr = (TextView) findViewById(R.id.shopaddressid);
@@ -57,8 +57,10 @@ public class BuyPage extends AppCompatActivity {
                     String itemno = (String) dataSnapshot.child("quantity").getValue();
                     shopid = (String) dataSnapshot.child("id").getValue();
                     pricestr.setText(pristr);
-                    qtynostr.setText(itemno);
+                    qtynostr.setText("1");
                     itemnamestr.setText(titlestr);
+                    itempricestr.setText(pristr);
+                    taxamtstr.setText((int) ((Float.parseFloat(pristr)/100)*10));
                     //des.setText(description);
                    // rb.setRating(Float.parseFloat(rating));
                     Picasso.with(getApplicationContext()).load(image).centerCrop().resize(itemimg.getMeasuredWidth(),itemimg.getMeasuredHeight()).error(R.drawable.ic_broken_image_black_24dp)
@@ -75,7 +77,13 @@ public class BuyPage extends AppCompatActivity {
 
             }
         });
-        mdb.child(shopid).addValueEventListener(new ValueEventListener() {
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        /*mdb.child(shopid).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String Address = (String) dataSnapshot.child("Address").getValue();
@@ -90,6 +98,6 @@ public class BuyPage extends AppCompatActivity {
             public void onCancelled(DatabaseError databaseError) {
 
             }
-        });
+        });*/
     }
 }
