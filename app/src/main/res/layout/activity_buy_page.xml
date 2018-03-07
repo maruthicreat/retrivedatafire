@@ -10,12 +10,12 @@
     <Button
         android:id="@+id/continuebtnid"
         android:layout_width="393dp"
-        android:layout_height="65dp"
-        android:layout_marginBottom="8dp"
+        android:layout_height="68dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="592dp"
         android:backgroundTint="@android:color/holo_orange_dark"
+        android:foregroundGravity="bottom"
         android:onClick="getshopid"
         android:text="Continue Payment"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -60,10 +60,11 @@
             <Button
                 android:id="@+id/addressbtn"
                 android:layout_width="match_parent"
-                android:layout_height="63dp"
+                android:layout_height="65dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:backgroundTint="@color/colorPrimaryDark"
+                android:onClick="placepickerfun"
                 android:text="Pick Address"
                 android:textColor="@android:color/white"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -105,13 +106,13 @@
                     android:id="@+id/itemimageit"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:layout_alignEnd="@+id/radioGroup"
-                    android:layout_alignRight="@+id/radioGroup"
+                    android:layout_alignEnd="@+id/paymentgroup"
+                    android:layout_alignRight="@+id/paymentgroup"
                     android:layout_alignTop="@+id/itemnameid"
                     app:srcCompat="@drawable/ic_image_black_24dp" />
 
                 <RadioGroup
-                    android:id="@+id/radioGroup"
+                    android:id="@+id/paymentgroup"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="200dp"
@@ -124,7 +125,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
                         android:layout_weight="1"
-                        android:text="Cash On Delivery" />
+                        android:text="Cash On Dellivery" />
 
                     <RadioButton
                         android:id="@+id/radioButton2"
@@ -132,7 +133,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
                         android:layout_weight="1"
-                        android:text="Online payment" />
+                        android:text="Online Payment" />
 
                     <RadioButton
                         android:id="@+id/radioButton"
@@ -180,7 +181,7 @@
                     android:layout_alignLeft="@+id/phoneid"
                     android:layout_alignStart="@+id/phoneid"
                     android:layout_below="@+id/textView13"
-                    android:layout_marginTop="15dp"
+                    android:paddingTop="10dp"
                     android:text="₹"
                     android:textColor="@color/black"
                     android:textSize="30sp" />
@@ -191,9 +192,9 @@
                     android:layout_height="wrap_content"
                     android:layout_alignBottom="@+id/textView15"
                     android:layout_marginLeft="5dp"
-                    android:layout_marginTop="15dp"
                     android:layout_toEndOf="@+id/textView15"
                     android:layout_toRightOf="@+id/textView15"
+                    android:paddingTop="10dp"
                     android:text="000000"
                     android:textColor="@color/black"
                     android:textSize="30sp" />

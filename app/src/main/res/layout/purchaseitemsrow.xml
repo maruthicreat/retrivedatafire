@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/DelivredTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ItemTitleid"
+            android:layout_toEndOf="@+id/imageviewid"
+            android:layout_toRightOf="@+id/imageviewid"
+            android:gravity="end"
+            android:padding="10dp"
+            android:text="TextView"
+            tools:layout_editor_absoluteX="194dp"
+            tools:layout_editor_absoluteY="58dp" />
+
+        <ImageView
+            android:id="@+id/imageviewid"
+            android:layout_width="146dp"
+            android:layout_height="134dp"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/setratingid"
+            android:layout_toStartOf="@+id/setratingid"
+            app:srcCompat="@drawable/ic_image_black_24dp"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="0dp" />
+
+        <TextView
+            android:id="@+id/ItemTitleid"
+            android:layout_width="match_parent"
+            android:layout_height="51dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/imageviewid"
+            android:layout_toRightOf="@+id/imageviewid"
+            android:gravity="center_vertical|clip_horizontal"
+            android:paddingLeft="10dp"
+            android:text="Name"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            tools:layout_editor_absoluteX="146dp"
+            tools:layout_editor_absoluteY="0dp" />
+
+        <Button
+            android:id="@+id/reviewbtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/imageviewid"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:backgroundTint="@android:color/holo_orange_dark"
+            android:text="WRITE A REVIEW"
+            android:textSize="12sp" />
+
+        <RatingBar
+            android:id="@+id/setratingid"
+            style="@style/Widget.AppCompat.RatingBar.Indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/DelivredTime"
+            android:layout_toLeftOf="@+id/reviewbtn"
+            android:layout_toStartOf="@+id/reviewbtn" />
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>

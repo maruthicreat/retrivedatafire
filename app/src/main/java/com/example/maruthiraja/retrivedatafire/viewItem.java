@@ -55,7 +55,7 @@ public class viewItem extends AppCompatActivity
         setContentView(R.layout.activity_view_item);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        Toast.makeText(this, "start", Toast.LENGTH_SHORT).show();
+       // Toast.makeText(this, "start", Toast.LENGTH_SHORT).show();
         mList =(RecyclerView)findViewById(R.id.itemRecycler);
         mList.setHasFixedSize(true);
         gridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);

@@ -86,7 +86,7 @@ public class SelectedItem extends AppCompatActivity {
                 muser = FirebaseAuth.getInstance().getCurrentUser();
                 mdb = FirebaseDatabase.getInstance().getReference().child("cart").child(muser.getUid()).push();
                 mdb.child("itemid").setValue(itemid);
-                startActivity(new Intent(SelectedItem.this,BuyPage.class));
+                //startActivity(new Intent(SelectedItem.this,BuyPage.class));
             }
         });
 
