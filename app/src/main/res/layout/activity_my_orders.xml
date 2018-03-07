@@ -6,10 +6,21 @@
     android:layout_height="match_parent"
     tools:context="com.example.maruthiraja.retrivedatafire.MyOrders">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/purchasetool"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:title="Purchase History"
+        app:theme="@style/ToolbarStyle"
+        app:titleTextColor="@color/white" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/purchaseditems"
         android:layout_width="395dp"
-        android:layout_height="643dp"
+        android:layout_height="642dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"

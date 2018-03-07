@@ -306,6 +306,7 @@ public class viewItem extends AppCompatActivity
         if (id == R.id.home) {
             // Handle the camera action
         } else if (id == R.id.cart) {
+            startActivity(new Intent(viewItem.this,MyOrders.class));
 
         } else if (id == R.id.orders) {
 

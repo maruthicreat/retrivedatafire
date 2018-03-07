@@ -38,13 +38,18 @@ public class TestActivity extends AppCompatActivity implements GoogleApiClient.O
     ImageView itemimg;
     private DatabaseReference mdatabase,mdb;
     private FirebaseUser muser;
-    String itemid;
-    String shopid;
-    String totalamt;
-    String lat,log;
-    RadioGroup rb;
-    String address;
-    RadioButton rrb;
+    private String itemid;
+    private String shopid;
+    private String totalamt;
+    private String lat,log;
+    private RadioGroup rb;
+    private String address;
+    private String titlestr;
+    private String pristr;
+    private String rating;
+    private String image;
+    private String itemno;
+    private RadioButton rrb;
     StringBuilder stBuilder = new StringBuilder();
 
     private GoogleApiClient mGoogleApiClient;
@@ -89,11 +94,11 @@ public class TestActivity extends AppCompatActivity implements GoogleApiClient.O
             public void onDataChange(DataSnapshot dataSnapshot) {
                 try {
                     //String description = (String) dataSnapshot.child("description").getValue();
-                    String image = (String) dataSnapshot.child("image").getValue();
-                    String pristr = (String) dataSnapshot.child("price").getValue();
-                    //String rating = (String) dataSnapshot.child("rating").getValue();
-                    String titlestr = (String) dataSnapshot.child("title").getValue();
-                    String itemno = (String) dataSnapshot.child("quantity").getValue();
+                    image = (String) dataSnapshot.child("image").getValue();
+                    pristr = (String) dataSnapshot.child("price").getValue();
+                    rating = (String) dataSnapshot.child("rating").getValue();
+                    titlestr = (String) dataSnapshot.child("title").getValue();
+                    itemno = (String) dataSnapshot.child("quantity").getValue();
                     shopid = (String) dataSnapshot.child("id").getValue();
                     pricestr.setText(pristr);
                     qtynostr.setText("1");
@@ -192,10 +197,12 @@ public class TestActivity extends AppCompatActivity implements GoogleApiClient.O
                 muser = FirebaseAuth.getInstance().getCurrentUser();
                 mdb = FirebaseDatabase.getInstance().getReference().child("Purchased").child(muser.getUid()).push();
                 mdb.child("itemid").setValue(itemid);
-
+                mdb.child("itemname").setValue(titlestr);
+                mdb.child("itemimage").setValue(image);
+                mdb.child("itemrating").setValue(rating);
                 mdb.child("paymentMode").setValue(rrb.getText());
                 if (rrb.getText().equals("Cash On Delivery") || rrb.getText().equals("Get on Shop")) {
-                    mdb.child("Amount_payable").setValue(totalamt);
+                    mdb.child("amountpayable").setValue(totalamt);
                     mdb.child("ispayed").setValue("1");
                     if (rrb.getText().equals("Cash On Delivery")) {
                         Toast.makeText(this, "Cash On Delivery Accepted Your Order will be delivered within 2 hrs", Toast.LENGTH_SHORT).show();
@@ -203,7 +210,7 @@ public class TestActivity extends AppCompatActivity implements GoogleApiClient.O
                         Toast.makeText(this, "Please Collect your Order to this Shop address : " + address, Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    mdb.child("Amount_payable").setValue("0");
+                    mdb.child("AmountPayable").setValue("0");
                     mdb.child("ispayed").setValue("1");
                     Toast.makeText(this, "Online Payment Successful Your Order will be delivered within 2 hrs", Toast.LENGTH_SHORT).show();
                 }

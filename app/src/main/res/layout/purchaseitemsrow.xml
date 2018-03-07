@@ -3,11 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@android:color/darker_gray">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_margin="7dp"
+        android:background="@color/gray">
 
         <TextView
             android:id="@+id/DelivredTime"
@@ -17,18 +20,22 @@
             android:layout_toEndOf="@+id/imageviewid"
             android:layout_toRightOf="@+id/imageviewid"
             android:gravity="end"
-            android:padding="10dp"
+            android:maxLines="1"
+            android:padding="1dp"
             android:text="TextView"
             tools:layout_editor_absoluteX="194dp"
             tools:layout_editor_absoluteY="58dp" />
 
         <ImageView
             android:id="@+id/imageviewid"
-            android:layout_width="146dp"
-            android:layout_height="134dp"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_toLeftOf="@+id/setratingid"
-            android:layout_toStartOf="@+id/setratingid"
+            android:adjustViewBounds="true"
+            android:background="@android:color/white"
+            android:scaleType="fitStart"
             app:srcCompat="@drawable/ic_image_black_24dp"
             tools:layout_editor_absoluteX="0dp"
             tools:layout_editor_absoluteY="0dp" />
@@ -37,11 +44,10 @@
             android:id="@+id/ItemTitleid"
             android:layout_width="match_parent"
             android:layout_height="51dp"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:layout_toEndOf="@+id/imageviewid"
             android:layout_toRightOf="@+id/imageviewid"
+            android:background="@color/white"
             android:gravity="center_vertical|clip_horizontal"
             android:paddingLeft="10dp"
             android:text="Name"
@@ -54,21 +60,21 @@
             android:id="@+id/reviewbtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/imageviewid"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
+            android:layout_below="@+id/DelivredTime"
             android:backgroundTint="@android:color/holo_orange_dark"
             android:text="WRITE A REVIEW"
-            android:textSize="12sp" />
+            android:textSize="10sp" />
 
         <RatingBar
             android:id="@+id/setratingid"
-            style="@style/Widget.AppCompat.RatingBar.Indicator"
+            style="@android:style/Widget.DeviceDefault.Light.RatingBar.Small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/DelivredTime"
-            android:layout_toLeftOf="@+id/reviewbtn"
-            android:layout_toStartOf="@+id/reviewbtn" />
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp" />
     </RelativeLayout>
 
 </android.support.v7.widget.CardView>

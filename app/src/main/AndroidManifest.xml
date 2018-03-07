@@ -49,7 +49,8 @@
         <activity android:name=".SelectedItem" />
         <activity android:name=".BuyPage" />
         <activity android:name=".TestActivity" />
-        <activity android:name=".MyOrders"/>
+        <activity android:name=".MyOrders" />
+        <activity android:name=".ReviewArea"></activity>
     </application>
 
 </manifest>

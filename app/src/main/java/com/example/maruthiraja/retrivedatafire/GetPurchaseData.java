@@ -2,17 +2,45 @@ package com.example.maruthiraja.retrivedatafire;
 
 
 public class GetPurchaseData {
-    String Amount_payable;
-    String ispayed;
-    String itemid;
-    String paymentMode;
+    private String amountpayable;
+    private String ispayed;
+    private String itemid;
+    private String paymentMode;
+    private String itemimage;
+    private String itemname;
+    private String purchaseTime;
 
-    public String getAmount_payable() {
-        return Amount_payable;
+    public GetPurchaseData()
+    {
     }
 
-    public void setAmount_payable(String amount_payable) {
-        Amount_payable = amount_payable;
+    public GetPurchaseData(String amountpayable, String ispayed, String itemid, String paymentMode, String itemimage, String itemname, String purchaseTime, String itemrating) {
+        this.amountpayable = amountpayable;
+        this.ispayed = ispayed;
+        this.itemid = itemid;
+        this.paymentMode = paymentMode;
+        this.itemimage = itemimage;
+        this.itemname = itemname;
+        this.purchaseTime = purchaseTime;
+        this.itemrating = itemrating;
+    }
+
+    public String getItemrating() {
+        return itemrating;
+    }
+
+    public void setItemrating(String itemrating) {
+        this.itemrating = itemrating;
+    }
+
+    private String itemrating;
+
+    public String getAmountpayable() {
+        return amountpayable;
+    }
+
+    public void setAmountpayable(String amountpayable) {
+        this.amountpayable = amountpayable;
     }
 
     public String getIspayed() {
@@ -39,16 +67,39 @@ public class GetPurchaseData {
         this.paymentMode = paymentMode;
     }
 
-    public GetPurchaseData(String amount_payable, String ispayed, String itemid, String paymentMode) {
+    public String getItemimage() {
+        return itemimage;
+    }
 
-        Amount_payable = amount_payable;
+    public void setItemimage(String itemimage) {
+        this.itemimage = itemimage;
+    }
+
+    public String getItemname() {
+        return itemname;
+    }
+
+    public void setItemname(String itemname) {
+        this.itemname = itemname;
+    }
+
+    public String getPurchaseTime() {
+        return purchaseTime;
+    }
+
+    public void setPurchaseTime(String purchaseTime) {
+        this.purchaseTime = purchaseTime;
+    }
+
+
+
+    public GetPurchaseData(String amountpayable, String ispayed, String itemid, String paymentMode, String itemimage, String itemname, String purchaseTime) {
+        this.amountpayable = amountpayable;
         this.ispayed = ispayed;
         this.itemid = itemid;
         this.paymentMode = paymentMode;
-    }
-
-    public GetPurchaseData()
-    {
-
+        this.itemimage = itemimage;
+        this.itemname = itemname;
+        this.purchaseTime = purchaseTime;
     }
 }

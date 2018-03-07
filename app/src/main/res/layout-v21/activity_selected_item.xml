@@ -50,6 +50,7 @@
         android:background="?android:attr/colorPrimaryDark"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
+        app:theme="@style/ToolbarStyle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.529"
         app:layout_constraintStart_toStartOf="parent"
