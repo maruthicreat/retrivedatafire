@@ -148,7 +148,7 @@ public class viewItem extends AppCompatActivity
                 viewHolder.setOnClickListener(new Holder.ClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
-                        Toast.makeText(getApplicationContext(), "Item clicked at " + position, Toast.LENGTH_SHORT).show();
+                       // Toast.makeText(getApplicationContext(), "Item clicked at " + position, Toast.LENGTH_SHORT).show();
                         Intent selint = new Intent(getApplicationContext(),SelectedItem.class);
                         Intent intent = selint.putExtra("position", getRef(position).getKey());
                         startActivity(intent);
@@ -304,11 +304,12 @@ public class viewItem extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.home) {
-            // Handle the camera action
+
         } else if (id == R.id.cart) {
-            startActivity(new Intent(viewItem.this,MyOrders.class));
+            startActivity(new Intent(viewItem.this,Cart.class));
 
         } else if (id == R.id.orders) {
+            startActivity(new Intent(viewItem.this,MyOrders.class));
 
         } else if (id == R.id.account) {
 

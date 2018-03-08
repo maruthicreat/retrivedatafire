@@ -3,7 +3,7 @@
     android:id="@+id/linshopkeeplayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="@drawable/gard"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -43,7 +43,7 @@
             android:layout_below="@+id/passtext"
             android:layout_centerHorizontal="true"
             android:layout_margin="20dp"
-            android:background="@android:color/black"
+            android:background="@android:color/holo_orange_dark"
             android:onClick="testpass"
             android:text="LOGIN"
             android:textColor="@android:color/background_light" />
@@ -58,7 +58,7 @@
             android:layout_marginEnd="17dp"
             android:layout_marginRight="17dp"
             android:layout_marginTop="29dp"
-            android:background="@color/colorAccent"
+            android:background="@android:color/holo_orange_dark"
             android:onClick="callSignup"
             android:text="signup" />
 

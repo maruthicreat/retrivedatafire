@@ -1,6 +1,7 @@
 package com.example.maruthiraja.retrivedatafire;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -71,7 +73,7 @@ public class MyOrders extends AppCompatActivity {
                 myRef
         ) {
             @Override
-            protected void populateViewHolder(purchaseHolder viewHolder, GetPurchaseData model, int position) {
+            protected void populateViewHolder(purchaseHolder viewHolder, GetPurchaseData model, final int position) {
                 Toast.makeText(MyOrders.this, "view", Toast.LENGTH_SHORT).show();
                 String itemid = model.getItemid();
                 String itemname = model.getItemname();
@@ -84,6 +86,16 @@ public class MyOrders extends AppCompatActivity {
                 viewHolder.setRating(itmerating);
                 //viewHolder.setPrice(model.getPrice());
                 viewHolder.setImage(getApplicationContext(), model.getItemimage());
+                viewHolder.button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                       // Toast.makeText(MyOrders.this, "review clicked :"+getRef(position).getKey(), Toast.LENGTH_SHORT).show();
+                       // startActivity(new Intent(MyOrders.this,ReviewArea.class));
+                        Intent selint = new Intent(getApplicationContext(),ReviewArea.class);
+                        Intent intent = selint.putExtra("position", getRef(position).getKey());
+                        startActivity(intent);
+                    }
+                });
                 //viewHolder.setRating(model.);
             }
 
@@ -93,11 +105,14 @@ public class MyOrders extends AppCompatActivity {
 
     public static class purchaseHolder extends RecyclerView.ViewHolder {
         View mview;
+        Button button;
 
         public purchaseHolder(View itemView) {
             super(itemView);
             mview = itemView;
+            button = (Button)mview.findViewById(R.id.reviewbtn);
         }
+
         public void setTitleName(String title)
         {
             TextView textTitle = (TextView) mview.findViewById(R.id.ItemTitleid);

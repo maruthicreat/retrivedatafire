@@ -50,7 +50,9 @@
         <activity android:name=".BuyPage" />
         <activity android:name=".TestActivity" />
         <activity android:name=".MyOrders" />
-        <activity android:name=".ReviewArea"></activity>
+        <activity android:name=".ReviewArea" />
+        <activity android:name=".Cart" />
+        <activity android:name=".ForgetPassword"></activity>
     </application>
 
 </manifest>

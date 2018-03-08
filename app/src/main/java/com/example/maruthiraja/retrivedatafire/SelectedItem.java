@@ -32,6 +32,7 @@ public class SelectedItem extends AppCompatActivity {
     TextView des,name,title,noofitem;
     TextView price;
     RatingBar rb;
+    private String description,image,pristr,rating,titlestr,itemno;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,12 +56,12 @@ public class SelectedItem extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 try {
-                    String description = (String) dataSnapshot.child("description").getValue();
-                    String image = (String) dataSnapshot.child("image").getValue();
-                    String pristr = (String) dataSnapshot.child("price").getValue();
-                    String rating = (String) dataSnapshot.child("rating").getValue();
-                    String titlestr = (String) dataSnapshot.child("title").getValue();
-                    String itemno = (String) dataSnapshot.child("quantity").getValue();
+                    description = (String) dataSnapshot.child("description").getValue();
+                    image = (String) dataSnapshot.child("image").getValue();
+                    pristr = (String) dataSnapshot.child("price").getValue();
+                    rating = (String) dataSnapshot.child("rating").getValue();
+                    titlestr = (String) dataSnapshot.child("title").getValue();
+                    itemno = (String) dataSnapshot.child("quantity").getValue();
                     price.setText(pristr);
                     noofitem.setText(itemno);
                     title.setText(titlestr);
@@ -86,6 +87,9 @@ public class SelectedItem extends AppCompatActivity {
                 muser = FirebaseAuth.getInstance().getCurrentUser();
                 mdb = FirebaseDatabase.getInstance().getReference().child("cart").child(muser.getUid()).push();
                 mdb.child("itemid").setValue(itemid);
+                mdb.child("imageid").setValue(image);
+                mdb.child("itemname").setValue(titlestr);
+                mdb.child("itemprice").setValue(pristr);
                 //startActivity(new Intent(SelectedItem.this,BuyPage.class));
             }
         });

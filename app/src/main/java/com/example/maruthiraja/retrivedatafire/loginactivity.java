@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RatingBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -21,6 +22,7 @@ public class loginactivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private ProgressDialog progressDialog;
+    private TextView textView;
     private EditText username;
     private EditText password;
 
@@ -31,6 +33,7 @@ public class loginactivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         username = (EditText) findViewById(R.id.usertext);
         password = (EditText) findViewById(R.id.passtext);
+        textView = (TextView) findViewById(R.id.textView4);
         progressDialog = new ProgressDialog(this);
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -41,6 +44,12 @@ public class loginactivity extends AppCompatActivity {
                 }
             }
         };
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(loginactivity.this,ForgetPassword.class));
+            }
+        });
     }
 
     @Override
@@ -81,6 +90,8 @@ public class loginactivity extends AppCompatActivity {
     public void callSignup(View view){
         startActivity(new Intent(loginactivity.this, Signup.class));
     }
+
+
 
 }
 
