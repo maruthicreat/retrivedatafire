@@ -37,11 +37,12 @@ public class Cart extends AppCompatActivity {
     private FirebaseDatabase database,mdb;
     private Toolbar toolbar;
     private LinearLayoutManager horizontalLayoutManagaer;
-    DatabaseReference myRef,mref;
+    private DatabaseReference myRef,mref;
     private TextView textView;
     private List<String> listitems;
     String itemprice;
     private float total = 0;
+    private Button button;
 
 
     @Override
@@ -54,6 +55,7 @@ public class Cart extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
         mList.setHasFixedSize(true);
+        button = (Button) findViewById(R.id.cartpaybtn);
         textView = (TextView) findViewById(R.id.totprice);
         mAuth = FirebaseAuth.getInstance();
         cuser = mAuth.getCurrentUser();
@@ -63,6 +65,12 @@ public class Cart extends AppCompatActivity {
         database = FirebaseDatabase.getInstance("https://shopkeeperapp-7d95b.firebaseio.com/");
         myRef = database.getReference("cart").child(cuser.getUid());
         //myRef.keepSynced(true);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(),CartPayment.class));
+            }
+        });
         insetitem();
     }
 
