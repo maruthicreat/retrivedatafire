@@ -34,16 +34,16 @@ public class BuyPage extends AppCompatActivity {
 
         Toast.makeText(this, "called", Toast.LENGTH_SHORT).show();
         deliverystr = (TextView) findViewById(R.id.deliveryaddrid);
-        itemnamestr = (TextView) findViewById(R.id.itemnameid);
+        itemnamestr = (TextView) findViewById(R.id.itemlistnameid);
         sellernamestr = (TextView) findViewById(R.id.sellernameid);
         qtynostr = (TextView) findViewById(R.id.qtynoid);
         itempricestr = (TextView) findViewById(R.id.itempriceid);
-        pricestr = (TextView) findViewById(R.id.priceid);
-        taxamtstr = (TextView) findViewById(R.id.taxamtid);
+        pricestr = (TextView) findViewById(R.id.priceidcart);
+        taxamtstr = (TextView) findViewById(R.id.taxamtidcart);
         totalamtstr = (TextView) findViewById(R.id.totalamtid);
         phonestr = (TextView) findViewById(R.id.phoneid);
         shopaddstr = (TextView) findViewById(R.id.shopaddressid);
-        itemimg = (ImageView) findViewById(R.id.itemimageit);
+        itemimg = (ImageView) findViewById(R.id.itemlistimageit);
         mdatabase = FirebaseDatabase.getInstance().getReference().child("shop_details");
         mdb = FirebaseDatabase.getInstance().getReference().child("ShopkeeperSignup");
         mdatabase.child(itemid).addValueEventListener(new ValueEventListener() {

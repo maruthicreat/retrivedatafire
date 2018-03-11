@@ -1,14 +1,15 @@
 package com.example.maruthiraja.retrivedatafire;
 
 
-public class GetCartData {
+public class CartListGetData {
     private String imageid;
     private String itemid;
     private String itemname;
     private String itemprice;
 
-    public GetCartData()
+    public CartListGetData()
     {
+
     }
 
     public String getImageid() {
@@ -43,12 +44,11 @@ public class GetCartData {
         this.itemprice = itemprice;
     }
 
-    public GetCartData(String imageid, String itemid, String itemname, String itemprice) {
+    public CartListGetData(String imageid, String itemid, String itemname, String itemprice) {
+
         this.imageid = imageid;
         this.itemid = itemid;
         this.itemname = itemname;
         this.itemprice = itemprice;
     }
-
-
 }

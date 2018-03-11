@@ -67,7 +67,7 @@ public class SelectedItem extends AppCompatActivity {
                     title.setText(titlestr);
                     des.setText(description);
                     rb.setRating(Float.parseFloat(rating));
-                    Picasso.with(getApplicationContext()).load(image).centerCrop().resize(imageView.getMeasuredWidth(),imageView.getMeasuredHeight()).error(R.drawable.ic_broken_image_black_24dp)
+                    Picasso.with(getApplicationContext()).load(image).fit().centerCrop().error(R.drawable.ic_broken_image_black_24dp)
                             .placeholder(R.drawable.ic_image_black_24dp).into(imageView);
                 }catch (Exception e)
                 {

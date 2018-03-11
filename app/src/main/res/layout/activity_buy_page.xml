@@ -78,7 +78,7 @@
                 android:background="@color/white">
 
                 <TextView
-                    android:id="@+id/itemnameid"
+                    android:id="@+id/itemlistnameid"
                     android:layout_width="270dp"
                     android:layout_height="match_parent"
                     android:layout_alignParentLeft="true"
@@ -96,19 +96,19 @@
                     android:id="@+id/textView11"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/itemnameid"
-                    android:layout_alignStart="@+id/itemnameid"
-                    android:layout_below="@+id/itemnameid"
+                    android:layout_alignLeft="@+id/itemlistnameid"
+                    android:layout_alignStart="@+id/itemlistnameid"
+                    android:layout_below="@+id/itemlistnameid"
                     android:layout_marginTop="14dp"
                     android:text="Seller Name : " />
 
                 <ImageView
-                    android:id="@+id/itemimageit"
+                    android:id="@+id/itemlistimageit"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_alignEnd="@+id/paymentgroup"
                     android:layout_alignRight="@+id/paymentgroup"
-                    android:layout_alignTop="@+id/itemnameid"
+                    android:layout_alignTop="@+id/itemlistnameid"
                     app:srcCompat="@drawable/ic_image_black_24dp" />
 
                 <RadioGroup
@@ -157,9 +157,9 @@
                     android:id="@+id/textView13"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/itemimageit"
-                    android:layout_alignStart="@+id/itemimageit"
-                    android:layout_below="@+id/itemimageit"
+                    android:layout_alignLeft="@+id/itemlistimageit"
+                    android:layout_alignStart="@+id/itemlistimageit"
+                    android:layout_below="@+id/itemlistimageit"
                     android:layout_marginLeft="25dp"
                     android:layout_marginStart="25dp"
                     android:text="Qty : " />
@@ -261,7 +261,7 @@
                     android:textSize="18sp" />
 
                 <TextView
-                    android:id="@+id/priceid"
+                    android:id="@+id/priceidcart"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_above="@+id/textView19"
@@ -274,12 +274,12 @@
                     android:textSize="18sp" />
 
                 <TextView
-                    android:id="@+id/taxamtid"
+                    android:id="@+id/taxamtidcart"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignBottom="@+id/textView19"
-                    android:layout_alignLeft="@+id/priceid"
-                    android:layout_alignStart="@+id/priceid"
+                    android:layout_alignLeft="@+id/priceidcart"
+                    android:layout_alignStart="@+id/priceidcart"
                     android:text="40"
                     android:textColor="@color/black"
                     android:textSize="18sp" />
@@ -301,8 +301,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignBottom="@+id/textView22"
-                    android:layout_alignEnd="@+id/taxamtid"
-                    android:layout_alignRight="@+id/taxamtid"
+                    android:layout_alignEnd="@+id/taxamtidcart"
+                    android:layout_alignRight="@+id/taxamtidcart"
                     android:text="00"
                     android:textColor="@color/black"
                     android:textSize="18sp" />
