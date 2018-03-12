@@ -309,6 +309,8 @@
                     android:layout_alignParentRight="true"
                     android:layout_marginEnd="34dp"
                     android:layout_marginRight="34dp"
+                    android:foregroundGravity="left"
+                    android:gravity="left"
                     android:text="00"
                     android:textColor="@color/black"
                     android:textSize="18sp" />
@@ -320,6 +322,8 @@
                     android:layout_alignBottom="@+id/textView19"
                     android:layout_alignLeft="@+id/priceidcart"
                     android:layout_alignStart="@+id/priceidcart"
+                    android:foregroundGravity="left"
+                    android:gravity="left"
                     android:text="40"
                     android:textColor="@color/black"
                     android:textSize="18sp" />
@@ -340,9 +344,11 @@
                     android:id="@+id/totalamtidcart"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/textView22"
-                    android:layout_alignEnd="@+id/taxamtidcart"
-                    android:layout_alignRight="@+id/taxamtidcart"
+                    android:layout_alignLeft="@+id/taxamtidcart"
+                    android:layout_alignStart="@+id/taxamtidcart"
+                    android:layout_below="@+id/textView19"
+                    android:foregroundGravity="left"
+                    android:gravity="left"
                     android:text="00"
                     android:textColor="@color/black"
                     android:textSize="18sp" />

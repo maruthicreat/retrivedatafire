@@ -40,6 +40,7 @@ public class ReviewArea extends AppCompatActivity {
                 DatabaseReference myRef = database.getReference("product_reviews").child(muser.getUid()).child(itemid);
                 myRef.child("review").setValue(rev);
                 myRef.child("rating").setValue(rat);
+                myRef.child("comrate").setValue("-1");
                 Toast.makeText(ReviewArea.this, "Review Submitted Successfully", Toast.LENGTH_SHORT).show();
                 finish();
             }

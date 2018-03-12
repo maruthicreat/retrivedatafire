@@ -105,6 +105,25 @@ public class viewItem extends AppCompatActivity
             }
         });
 
+        searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Toast.makeText(viewItem.this, "change", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(viewItem.this,SearchItem.class);
+                intent.putExtra("message",query);
+                startActivity(intent);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                //Do some magic
+                //Toast.makeText(shopkeeperfirstpage.this, "change", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        });
+
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -187,14 +206,14 @@ public class viewItem extends AppCompatActivity
             mview.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //Toast.makeText(mview.getContext(), "you clicked me!!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mview.getContext(), "you clicked me!!", Toast.LENGTH_SHORT).show();
                     mClickListener.onItemClick(view,getAdapterPosition());
                 }
             });
             mview.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
-                    // Toast.makeText(mview.getContext(), "you Long clicked me!!", Toast.LENGTH_SHORT).show();
+                     Toast.makeText(mview.getContext(), "you Long clicked me!!", Toast.LENGTH_SHORT).show();
                     mClickListener.onItemLongClick(view,getAdapterPosition());
                     return true;
                 }

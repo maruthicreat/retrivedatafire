@@ -53,7 +53,7 @@ public class CartPayment extends AppCompatActivity {
     private FirebaseUser muser;
     private List<String> listitems;
     private ArrayList<String>  itemname,itemprice,itemid ,itmeimage ;
-
+    private String rat;
     private RadioButton rrb;
     private int count = 0;
     private RadioGroup rb;
@@ -195,10 +195,10 @@ public class CartPayment extends AppCompatActivity {
        Iterator itr2 = itmeimage.iterator();
        Iterator itr3 = itemid.iterator();
        while (itr.hasNext() & itr1.hasNext() & itr2.hasNext() & itr3.hasNext()) {
-           System.out.println(itr.next());
-           System.out.println(itr1.next());
-           System.out.println(itr2.next());
-           System.out.println(itr3.next());
+          // System.out.println(itr.next());
+           //System.out.println(itr1.next());
+           //System.out.println(itr2.next());
+           //System.out.println(itr3.next());
 
            int selectedid = rb.getCheckedRadioButtonId();
            rrb = (RadioButton) findViewById(selectedid);
@@ -208,10 +208,12 @@ public class CartPayment extends AppCompatActivity {
                if (rrb != null) {
                    muser = FirebaseAuth.getInstance().getCurrentUser();
                    mdb = FirebaseDatabase.getInstance().getReference().child("Purchased").child(muser.getUid()).push();
-                   mdb.child("itemid").setValue(itr3.next().toString());
+                   String itemid = itr3.next().toString();
+                   mdb.child("itemid").setValue(itemid);
                    mdb.child("itemname").setValue(itr.next().toString());
                    mdb.child("itemimage").setValue(itr2.next().toString());
-                   mdb.child("itemrating").setValue(getrating(itr.next().toString()));
+                   getrating(itemid,mdb);
+                   //mdb.child("itemrating").setValue(getrating(itemid));
                    mdb.child("paymentMode").setValue(rrb.getText());
                    if (rrb.getText().equals("Cash On Delivery") || rrb.getText().equals("Get on Shop")) {
                        mdb.child("amountpayable").setValue(total + "");
@@ -238,13 +240,14 @@ public class CartPayment extends AppCompatActivity {
        }
     }
 
-    public String getrating(String id)
+    public void getrating(String id, final DatabaseReference mdb)
     {
-        final String[] rating = new String[1];
+
         mdatabase.child(id).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                rating[0] = (String) dataSnapshot.child("rating").getValue();
+                rat = (String) dataSnapshot.child("rating").getValue();
+                mdb.child("itemrating").setValue(rat);
             }
 
             @Override
@@ -252,7 +255,8 @@ public class CartPayment extends AppCompatActivity {
 
             }
         });
-        return rating[0];
+
+        //return rat.get(0);
     }
 
     @Override

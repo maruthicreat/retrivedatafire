@@ -54,7 +54,8 @@
         <activity android:name=".ReviewArea" />
         <activity android:name=".Cart" />
         <activity android:name=".ForgetPassword" />
-        <activity android:name=".CartPayment"></activity>
+        <activity android:name=".CartPayment" />
+        <activity android:name=".SearchItem"></activity>
     </application>
 
 </manifest>
