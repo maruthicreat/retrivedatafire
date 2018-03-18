@@ -1,6 +1,7 @@
 package com.example.maruthiraja.retrivedatafire;
 
 import android.app.ProgressDialog;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -29,6 +30,7 @@ public class Signup extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_signup);
         repass = (EditText)findViewById(R.id.Cretypepass);
         emailId = (EditText) findViewById(R.id.CEmail);

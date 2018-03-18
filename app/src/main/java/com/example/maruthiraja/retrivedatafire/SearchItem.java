@@ -1,8 +1,9 @@
 package com.example.maruthiraja.retrivedatafire;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
@@ -12,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -30,6 +30,7 @@ public class SearchItem extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_search_item);
         toolbar = (Toolbar) findViewById(R.id.toolbar2);
         toolbar.setTitleTextColor(getResources().getColor(R.color.white));
@@ -40,7 +41,7 @@ public class SearchItem extends AppCompatActivity {
         }
         Intent intent = getIntent();
         message = intent.getStringExtra("message");
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+       // Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
         setrecycler();
     }
 

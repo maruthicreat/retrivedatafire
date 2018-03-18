@@ -3,11 +3,16 @@ package com.example.maruthiraja.retrivedatafire;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -40,7 +45,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class viewItem extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener ,PriceFragment.OnFragmentInteractionListener
+        ,NameFragment.OnFragmentInteractionListener,RatingFragment.OnFragmentInteractionListener{
+
+    Fragment fragment = null;
+    Class fragmentClass = null;
 
     private FirebaseAuth mAuth;
     private RecyclerView mList;
@@ -57,7 +66,10 @@ public class viewItem extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_view_item);
+         // Make to run your application only in portrait mode
+        //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE); // Make to run your application only in LANDSCAPE mode
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Spinner productname_spinner =(Spinner) findViewById(R.id.spinner2);
@@ -65,7 +77,6 @@ public class viewItem extends AppCompatActivity
         mList =(RecyclerView)findViewById(R.id.itemRecycler);
         mList.setHasFixedSize(true);
         gridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-        gridLayoutManager.setReverseLayout(true);
         mList.setLayoutManager(gridLayoutManager);
        // mList.setLayoutManager(new LinearLayoutManager(this));
         mAuth = FirebaseAuth.getInstance();
@@ -82,6 +93,15 @@ public class viewItem extends AppCompatActivity
             }
         };
 
+
+        fragmentClass = PriceFragment.class;
+        try {
+            fragment = (Fragment) fragmentClass.newInstance();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
 
 
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://shopkeeperapp-7d95b.firebaseio.com/");
@@ -152,14 +172,33 @@ public class viewItem extends AppCompatActivity
                         Toast.makeText(viewItem.this, item.toString(), Toast.LENGTH_SHORT).show();
                         if (item.toString().equals("Sort by Name"))
                         {
-                            //firebaseRecyclerAdapter.notifyDataSetChanged();
-                            insetitem("title");
-                            firebaseRecyclerAdapter.notifyDataSetChanged();
-                            mList.setAdapter(firebaseRecyclerAdapter);
+                            FragmentManager fragmentManager = getSupportFragmentManager();
+                            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                            NameFragment fragment = new NameFragment();
+                            fragmentTransaction.replace(R.id.fragmentarea, fragment);
+                            //fragmentTransaction.addToBackStack(fragment.toString());
+                            fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                            fragmentTransaction.commit();
                         }
                         else if (item.toString().equals("Sort by Price"))
                         {
-                            startActivity(new Intent(getApplicationContext(),ByPrice.class));
+                            FragmentManager fragmentManager = getSupportFragmentManager();
+                            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                            PriceFragment fragment = new PriceFragment();
+                            fragmentTransaction.replace(R.id.fragmentarea, fragment);
+                            //fragmentTransaction.addToBackStack(fragment.toString());
+                            fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                            fragmentTransaction.commit();
+                        }
+                        else if (item.toString().equals("Sort by Ratings"))
+                        {
+                            FragmentManager fragmentManager = getSupportFragmentManager();
+                            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                            RatingFragment fragment = new RatingFragment();
+                            fragmentTransaction.replace(R.id.fragmentarea, fragment);
+                            //fragmentTransaction.addToBackStack(fragment.toString());
+                            fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                            fragmentTransaction.commit();
                         }
                     }
                     public void onNothingSelected(AdapterView<?> parent) {
@@ -167,7 +206,34 @@ public class viewItem extends AppCompatActivity
                 });
     }
 
+    private void insertprice() {
+        progress = new ProgressDialog(this);
+        progress.setTitle("Loading Items");
+        progress.setMessage("Loading...!!!");
+        progress.show();
+        mAuth.addAuthStateListener(mAuthListener);
 
+
+        firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Getdata, Holder>(
+                Getdata.class,
+                R.layout.itemrow,
+                Holder.class,
+                myRef.orderByChild("price")
+        ) {
+            @Override
+            protected void populateViewHolder(Holder viewHolder, Getdata model, int position) {
+                viewHolder.setTitle(model.getTitle());
+                viewHolder.setDescription(model.getDescription());
+                viewHolder.setPrice(model.getPrice());
+                viewHolder.setImage(getApplicationContext(), model.getImage());
+                viewHolder.setRating(model.getRating());
+                if (progress != null && progress.isShowing()) {
+                    progress.dismiss();
+                }
+            }
+
+        };
+    }
 
     private void insetitem(String nametype) {
         progress = new ProgressDialog(this);
@@ -228,6 +294,11 @@ public class viewItem extends AppCompatActivity
         String listarr[] = listitems.toArray(new String[listitems.size()]);
         // Toast.makeText(this, listarr[0], Toast.LENGTH_SHORT).show();
         searchView.setSuggestions(listarr);
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 
     public static class Holder extends RecyclerView.ViewHolder

@@ -1,7 +1,8 @@
 package com.example.maruthiraja.retrivedatafire;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RatingBar;
@@ -23,6 +24,7 @@ public class ReviewArea extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_review_area);
         itemid = getIntent().getStringExtra("position");
         Toast.makeText(this, itemid, Toast.LENGTH_SHORT).show();
