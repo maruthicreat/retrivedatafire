@@ -63,10 +63,15 @@ public class loginactivity extends AppCompatActivity {
         String uname = username.getText().toString();
         String pass = password.getText().toString();
 
-        if (TextUtils.isEmpty(uname) || TextUtils.isEmpty(pass))
+        if (TextUtils.isEmpty(uname))
         {
-            Toast.makeText(this, "Fields are Empty.", Toast.LENGTH_SHORT).show();
-        }else {
+            username.setError( "User Name is required!");
+        }
+        else if(TextUtils.isEmpty(pass))
+        {
+            password.setError( "Password is required!" );
+        }
+        else {
             progressDialog.setMessage("Signing In");
             progressDialog.show();
             // Toast.makeText(this, "clicked", Toast.LENGTH_SHORT).show();

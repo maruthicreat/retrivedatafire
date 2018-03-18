@@ -1,5 +1,6 @@
 package com.example.maruthiraja.retrivedatafire;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,8 +19,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.RatingBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,11 +46,13 @@ public class viewItem extends AppCompatActivity
     private RecyclerView mList;
     private MaterialSearchView searchView;
     public RatingBar ratingBar;
+    private ProgressDialog progress;
     private FirebaseAuth.AuthStateListener mAuthListener;
     DatabaseReference myRef;
     boolean doubleBackToExitPressedOnce = false;
     StaggeredGridLayoutManager gridLayoutManager;
     private List<String> listitems ;
+    private static FirebaseRecyclerAdapter<Getdata,Holder> firebaseRecyclerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,10 +60,12 @@ public class viewItem extends AppCompatActivity
         setContentView(R.layout.activity_view_item);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        Spinner productname_spinner =(Spinner) findViewById(R.id.spinner2);
        // Toast.makeText(this, "start", Toast.LENGTH_SHORT).show();
         mList =(RecyclerView)findViewById(R.id.itemRecycler);
         mList.setHasFixedSize(true);
         gridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        gridLayoutManager.setReverseLayout(true);
         mList.setLayoutManager(gridLayoutManager);
        // mList.setLayoutManager(new LinearLayoutManager(this));
         mAuth = FirebaseAuth.getInstance();
@@ -75,6 +82,8 @@ public class viewItem extends AppCompatActivity
             }
         };
 
+
+
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://shopkeeperapp-7d95b.firebaseio.com/");
         myRef = database.getReference("shop_details");
         myRef.keepSynced(true);
@@ -89,13 +98,7 @@ public class viewItem extends AppCompatActivity
                     String key = ds.getKey();
                     listitems.add(ds.child("title").getValue().toString());
                     setsuggestion(listitems);
-                    //String description = ds.child("description").getValue().toString();
-                    //Toast.makeText(viewItem.this, description, Toast.LENGTH_SHORT).show();
                 }
-
-                //String value = dataSnapshot.getValue(String.class);
-                //System.out.println(value);
-               // Toast.makeText(viewItem.this, value, Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -140,17 +143,78 @@ public class viewItem extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        insetitem();
+
+        productname_spinner.setOnItemSelectedListener(
+                new AdapterView.OnItemSelectedListener() {
+                    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+
+                        Object item = parent.getItemAtPosition(pos);
+                        Toast.makeText(viewItem.this, item.toString(), Toast.LENGTH_SHORT).show();
+                        if (item.toString().equals("Sort by Name"))
+                        {
+                            //firebaseRecyclerAdapter.notifyDataSetChanged();
+                            insetitem("title");
+                            firebaseRecyclerAdapter.notifyDataSetChanged();
+                            mList.setAdapter(firebaseRecyclerAdapter);
+                        }
+                        else if (item.toString().equals("Sort by Price"))
+                        {
+                            //firebaseRecyclerAdapter.notifyDataSetChanged();
+                            insertprice();
+                            if (progress != null && progress.isShowing()) {
+                                progress.dismiss();
+                            }
+                            firebaseRecyclerAdapter.notifyDataSetChanged();
+                            mList.setAdapter(firebaseRecyclerAdapter);
+                        }
+                    }
+                    public void onNothingSelected(AdapterView<?> parent) {
+                    }
+                });
     }
 
-    private void insetitem() {
+    private void insertprice() {
+        progress = new ProgressDialog(this);
+        progress.setTitle("Loading Items");
+        progress.setMessage("Loading...!!!");
+        progress.show();
         mAuth.addAuthStateListener(mAuthListener);
 
-        FirebaseRecyclerAdapter<Getdata,Holder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Getdata, Holder>(
+
+        firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Getdata, Holder>(
                 Getdata.class,
                 R.layout.itemrow,
                 Holder.class,
-                myRef
+                myRef.orderByChild("price")
+        ) {
+            @Override
+            protected void populateViewHolder(Holder viewHolder, Getdata model, int position) {
+                viewHolder.setTitle(model.getTitle());
+                viewHolder.setDescription(model.getDescription());
+                viewHolder.setPrice(model.getPrice());
+                viewHolder.setImage(getApplicationContext(), model.getImage());
+                viewHolder.setRating(model.getRating());
+                if (progress != null && progress.isShowing()) {
+                    progress.dismiss();
+                }
+            }
+
+        };
+    }
+
+    private void insetitem(String nametype) {
+        progress = new ProgressDialog(this);
+        progress.setTitle("Loading Items");
+        progress.setMessage("Loading...!!!");
+        progress.show();
+        mAuth.addAuthStateListener(mAuthListener);
+
+
+        firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Getdata, Holder>(
+                Getdata.class,
+                R.layout.itemrow,
+                Holder.class,
+                myRef.orderByChild(nametype)
         ) {
             @Override
             protected void populateViewHolder(Holder viewHolder, Getdata model, int position) {
@@ -159,6 +223,9 @@ public class viewItem extends AppCompatActivity
                 viewHolder.setPrice(model.getPrice());
                 viewHolder.setImage(getApplicationContext(),model.getImage());
                 viewHolder.setRating(model.getRating());
+                if (progress != null && progress.isShowing()) {
+                    progress.dismiss();
+                }
             }
 
             @Override
@@ -182,7 +249,7 @@ public class viewItem extends AppCompatActivity
             }
         };
 
-        mList.setAdapter(firebaseRecyclerAdapter);
+       // mList.setAdapter(firebaseRecyclerAdapter);
     }
 
     @Override
@@ -250,7 +317,9 @@ public class viewItem extends AppCompatActivity
         public void setImage(Context ctx,String image)
         {
             ImageView img = (ImageView) mview.findViewById(R.id.postimage);
-            Picasso.with(ctx).load(image).into(img);
+            Picasso.with(ctx).load(image).fit().centerCrop().error(R.drawable.ic_broken_image_black_24dp)
+                    .placeholder(R.drawable.ic_image_black_24dp).into(img);
+          //  Picasso.with(ctx).load(image).into(img);
         }
         public void setRating(String rating)
         {

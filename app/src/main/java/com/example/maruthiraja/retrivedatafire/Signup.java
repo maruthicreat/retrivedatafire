@@ -23,7 +23,7 @@ public class Signup extends AppCompatActivity {
 
     FirebaseAuth firebaseAuth;
     private ProgressDialog progressDialog;
-    EditText repass,emailId,password;
+    private EditText repass,emailId,password,nameid,phoneno;
     DatabaseReference mDatabase;
 
     @Override
@@ -32,6 +32,8 @@ public class Signup extends AppCompatActivity {
         setContentView(R.layout.activity_signup);
         repass = (EditText)findViewById(R.id.Cretypepass);
         emailId = (EditText) findViewById(R.id.CEmail);
+        nameid = (EditText) findViewById(R.id.cusnametext);
+        phoneno = (EditText) findViewById(R.id.cusphonetext);
         password = (EditText) findViewById(R.id.CPass);
         progressDialog = new ProgressDialog(this);
         firebaseAuth = FirebaseAuth.getInstance();
@@ -44,8 +46,31 @@ public class Signup extends AppCompatActivity {
         final String rep = repass.getText().toString().trim();
         final String emailid = emailId.getText().toString().trim();
         final String passwordid = password.getText().toString().trim();
-        if (TextUtils.isEmpty(rep) && TextUtils.isEmpty(emailid) && TextUtils.isEmpty(passwordid)){
-            makeText(this, "Pls fill the text fields...!!!", LENGTH_SHORT).show();
+        final String name = nameid.getText().toString().trim();
+        final String phone = phoneno.getText().toString().trim();
+        if (TextUtils.isEmpty(name)){
+
+            nameid.setError( "User Name is required!");
+
+        }else if(TextUtils.isEmpty(phone))
+        {
+            phoneno.setError( "Phone Number is required!");
+        }
+        else if(TextUtils.isEmpty(emailid))
+        {
+            emailId.setError( "Email id is required!");
+        }
+        else if(TextUtils.isEmpty(passwordid))
+        {
+            password.setError( "Password is required!");
+        }
+        else if(TextUtils.isEmpty(rep))
+        {
+            repass.setError( "Re-password is required!");
+        }
+        else if(passwordid.length() < 8)
+        {
+            password.setError( "Password must Contain 8 Character!");
         }
         else {
             if (rep.equals(passwordid))
@@ -89,7 +114,7 @@ public class Signup extends AppCompatActivity {
                 });
             }
             else {
-                makeText(this, "Pls Check the Re-Type Password..!!!", LENGTH_SHORT).show();
+                repass.setError( "Re-password is miss match!");
             }
         }
     }

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="spinnerItems">
+        <item>Sort by Name</item>
+        <item>Sort by Price</item>
+        <item>Sort by Ratings</item>
+    </string-array>
+</resources>

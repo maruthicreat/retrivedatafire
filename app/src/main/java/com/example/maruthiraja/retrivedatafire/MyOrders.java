@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -19,8 +20,11 @@ import android.support.v7.widget.Toolbar;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.squareup.picasso.Picasso;
 
@@ -91,9 +95,10 @@ public class MyOrders extends AppCompatActivity {
                     public void onClick(View view) {
                        // Toast.makeText(MyOrders.this, "review clicked :"+getRef(position).getKey(), Toast.LENGTH_SHORT).show();
                        // startActivity(new Intent(MyOrders.this,ReviewArea.class));
-                        Intent selint = new Intent(getApplicationContext(),ReviewArea.class);
-                        Intent intent = selint.putExtra("position", getRef(position).getKey());
-                        startActivity(intent);
+                       // Intent selint = new Intent(getApplicationContext(),ReviewArea.class);
+                        fetchitemid(getRef(position).getKey());
+                     //   Intent intent = selint.putExtra("position", getRef(position).getKey());
+                       // startActivity(intent);
                     }
                 });
                 //viewHolder.setRating(model.);
@@ -101,6 +106,33 @@ public class MyOrders extends AppCompatActivity {
 
         };
         mList.setAdapter(firebaseRecyclerAdapter);
+    }
+
+    private void fetchitemid(String key) {
+
+        myRef.child(key).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                String value = dataSnapshot.child("itemid").getValue(String.class);
+                Intent selint = new Intent(getApplicationContext(),ReviewArea.class);
+                Intent intent = selint.putExtra("position", value);
+                startActivity(intent);
+                finish();
+                Toast.makeText(MyOrders.this,value, Toast.LENGTH_SHORT).show();
+                //Log.d(TAG, "Value is: " + value);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                //Log.w(TAG, "Failed to read value.", error.toException());
+            }
+        });
+
+
+
     }
 
     public static class purchaseHolder extends RecyclerView.ViewHolder {
