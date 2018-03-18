@@ -159,13 +159,7 @@ public class viewItem extends AppCompatActivity
                         }
                         else if (item.toString().equals("Sort by Price"))
                         {
-                            //firebaseRecyclerAdapter.notifyDataSetChanged();
-                            insertprice();
-                            if (progress != null && progress.isShowing()) {
-                                progress.dismiss();
-                            }
-                            firebaseRecyclerAdapter.notifyDataSetChanged();
-                            mList.setAdapter(firebaseRecyclerAdapter);
+                            startActivity(new Intent(getApplicationContext(),ByPrice.class));
                         }
                     }
                     public void onNothingSelected(AdapterView<?> parent) {
@@ -173,34 +167,7 @@ public class viewItem extends AppCompatActivity
                 });
     }
 
-    private void insertprice() {
-        progress = new ProgressDialog(this);
-        progress.setTitle("Loading Items");
-        progress.setMessage("Loading...!!!");
-        progress.show();
-        mAuth.addAuthStateListener(mAuthListener);
 
-
-        firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Getdata, Holder>(
-                Getdata.class,
-                R.layout.itemrow,
-                Holder.class,
-                myRef.orderByChild("price")
-        ) {
-            @Override
-            protected void populateViewHolder(Holder viewHolder, Getdata model, int position) {
-                viewHolder.setTitle(model.getTitle());
-                viewHolder.setDescription(model.getDescription());
-                viewHolder.setPrice(model.getPrice());
-                viewHolder.setImage(getApplicationContext(), model.getImage());
-                viewHolder.setRating(model.getRating());
-                if (progress != null && progress.isShowing()) {
-                    progress.dismiss();
-                }
-            }
-
-        };
-    }
 
     private void insetitem(String nametype) {
         progress = new ProgressDialog(this);
