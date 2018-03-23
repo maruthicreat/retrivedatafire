@@ -123,7 +123,7 @@ public class NameFragment extends Fragment {
         progress.setTitle("Loading Items");
         progress.setMessage("Loading...!!!");
         progress.show();
-        Toast.makeText(getContext(), "work", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getContext(), "work", Toast.LENGTH_SHORT).show();
         mdatabase = FirebaseDatabase.getInstance().getReference().child("shop_details");
         System.out.println(mdatabase);
         gridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
@@ -149,6 +149,7 @@ public class NameFragment extends Fragment {
                 viewHolder.setPrice(model.getPrice());
                 viewHolder.setImage(getContext(),model.getImage());
                 viewHolder.setRating(model.getRating());
+                viewHolder.setQty(model.getQuantity());
                 if (progress != null && progress.isShowing()) {
                     progress.dismiss();
                 }
@@ -204,6 +205,11 @@ public class NameFragment extends Fragment {
         }
 
         private Holderprice.ClickListener mClickListener;
+
+        public void setQty(String qty) {
+            TextView textdesc = (TextView) mview.findViewById(R.id.countid);
+            textdesc.setText(qty);
+        }
 
 
         public interface ClickListener{

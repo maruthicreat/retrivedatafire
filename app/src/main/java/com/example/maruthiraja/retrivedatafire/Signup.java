@@ -98,6 +98,8 @@ public class Signup extends AppCompatActivity {
                             String u_id = firebaseAuth.getCurrentUser().getUid();
                             DatabaseReference c_uid = mDatabase.child(u_id);
                             c_uid.child("user_id").setValue("1");
+                            c_uid.child("name_id").setValue(name);
+                            c_uid.child("phone_id").setValue(phone);
                             c_uid.child("mail_id").setValue(emailid);
                             c_uid.child("password").setValue(passwordid);
                             progressDialog.dismiss();

@@ -104,7 +104,7 @@ public class PriceFragment extends Fragment {
         progress.setTitle("Loading Items");
         progress.setMessage("Loading...!!!");
         progress.show();
-        Toast.makeText(getContext(), "work", Toast.LENGTH_SHORT).show();
+       // Toast.makeText(getContext(), "work", Toast.LENGTH_SHORT).show();
         mdatabase = FirebaseDatabase.getInstance().getReference().child("shop_details");
         System.out.println(mdatabase);
         gridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
@@ -130,6 +130,7 @@ public class PriceFragment extends Fragment {
                 viewHolder.setPrice(model.getPrice());
                 viewHolder.setImage(getContext(),model.getImage());
                 viewHolder.setRating(model.getRating());
+                viewHolder.setQty(model.getQuantity());
                 if (progress != null && progress.isShowing()) {
                     progress.dismiss();
                 }
@@ -190,6 +191,12 @@ public class PriceFragment extends Fragment {
         public interface ClickListener{
             public void onItemClick(View view, int position);
             public void onItemLongClick(View view, int position);
+        }
+
+
+        public void setQty(String qty) {
+            TextView textdesc = (TextView) mview.findViewById(R.id.countid);
+            textdesc.setText(qty);
         }
 
         public void setOnClickListener(Holderprice.ClickListener clickListener){

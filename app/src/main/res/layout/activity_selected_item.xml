@@ -56,7 +56,7 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="539dp"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginTop="58dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -159,6 +159,11 @@
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:text="Description" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/reviewrecycle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
 
         </LinearLayout>
     </ScrollView>

@@ -11,18 +11,28 @@ public class Getdata {
     private String title;
     private String rating;
     private String review;
+    private String quantity;
+
+    public String getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(String quantity) {
+        this.quantity = quantity;
+    }
 
     public Getdata()
     {
 
     }
 
-    public Getdata(String description, String image, String price, String title) {
+    public Getdata(String description, String image, String price,String quantity, String title) {
 
         this.description = description;
         this.image = image;
         this.price = price;
         this.title = title;
+        this.quantity = quantity;
     }
 
     public String getRating() {

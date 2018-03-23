@@ -114,7 +114,7 @@
         android:background="@drawable/editstyle"
         android:drawableRight="@drawable/ic_local_phone_black_24dp"
         android:ems="10"
-        android:hint="Phone Nummber"
+        android:hint="Phone Number"
         android:inputType="textPersonName|phone"
         android:padding="15dp"
         app:layout_constraintEnd_toEndOf="parent"

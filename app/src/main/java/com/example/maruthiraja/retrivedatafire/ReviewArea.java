@@ -27,7 +27,7 @@ public class ReviewArea extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_review_area);
         itemid = getIntent().getStringExtra("position");
-        Toast.makeText(this, itemid, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, itemid, Toast.LENGTH_SHORT).show();
         ratingBar = (RatingBar) findViewById(R.id.putrating);
         review = (TextView) findViewById(R.id.reviewtext);
         button = (Button) findViewById(R.id.revsubbtn);

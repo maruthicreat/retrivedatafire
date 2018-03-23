@@ -96,7 +96,7 @@ public class Cart extends AppCompatActivity {
                 viewHolder.button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Toast.makeText(Cart.this, getRef(position).getKey(), Toast.LENGTH_SHORT).show();
+                      //  Toast.makeText(Cart.this, getRef(position).getKey(), Toast.LENGTH_SHORT).show();
                         myRef.child(getRef(position).getKey()).addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {

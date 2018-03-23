@@ -56,6 +56,7 @@
         <activity android:name=".ForgetPassword" />
         <activity android:name=".CartPayment" />
         <activity android:name=".SearchItem" />
+        <activity android:name=".MyAccount"></activity>
     </application>
 
 </manifest>

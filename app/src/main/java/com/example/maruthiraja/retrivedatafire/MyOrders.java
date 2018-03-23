@@ -79,7 +79,7 @@ public class MyOrders extends AppCompatActivity {
         ) {
             @Override
             protected void populateViewHolder(purchaseHolder viewHolder, GetPurchaseData model, final int position) {
-                Toast.makeText(MyOrders.this, "view", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(MyOrders.this, "view", Toast.LENGTH_SHORT).show();
                 String itemid = model.getItemid();
                 String itemname = model.getItemname();
                 String itemtime = model.getPurchaseTime();
@@ -121,7 +121,7 @@ public class MyOrders extends AppCompatActivity {
                 Intent intent = selint.putExtra("position", value);
                 startActivity(intent);
                 finish();
-                Toast.makeText(MyOrders.this,value, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(MyOrders.this,value, Toast.LENGTH_SHORT).show();
                 //Log.d(TAG, "Value is: " + value);
             }
 

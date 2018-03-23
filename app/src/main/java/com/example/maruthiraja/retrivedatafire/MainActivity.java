@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String value = dataSnapshot.getValue(String.class);
                 System.out.println(value);
-                Toast.makeText(MainActivity.this, value, Toast.LENGTH_SHORT).show();
+               // Toast.makeText(MainActivity.this, value, Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String value = dataSnapshot.getValue(String.class);
                 System.out.println(value);
-                Toast.makeText(MainActivity.this, value, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(MainActivity.this, value, Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -94,6 +94,5 @@ public class MainActivity extends AppCompatActivity {
         mAuth.signOut();
         finish();
     }
-
 
 }

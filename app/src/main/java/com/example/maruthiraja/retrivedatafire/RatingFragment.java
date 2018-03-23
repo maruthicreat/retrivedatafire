@@ -95,7 +95,8 @@ public class RatingFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setrecycler(view);
-        itemlist.smoothScrollToPosition(view.getTop());
+        itemlist.setFocusable(false);
+        //itemlist.smoothScrollToPosition(view.getTop());
     }
 
     private void setrecycler(View view) {
@@ -104,11 +105,11 @@ public class RatingFragment extends Fragment {
         progress.setTitle("Loading Items");
         progress.setMessage("Loading...!!!");
         progress.show();
-        Toast.makeText(getContext(), "work", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getContext(), "work", Toast.LENGTH_SHORT).show();
         mdatabase = FirebaseDatabase.getInstance().getReference().child("shop_details");
         System.out.println(mdatabase);
         gridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-        gridLayoutManager.setReverseLayout(true);
+        //gridLayoutManager.setReverseLayout(true);
         mdatabase.keepSynced(true);
         //Toast.makeText(this, "called", Toast.LENGTH_SHORT).show();
         itemlist = (RecyclerView) view.findViewById(R.id.ratingfragmentid);
@@ -131,6 +132,7 @@ public class RatingFragment extends Fragment {
                 viewHolder.setPrice(model.getPrice());
                 viewHolder.setImage(getContext(),model.getImage());
                 viewHolder.setRating(model.getRating());
+                viewHolder.setQty(model.getQuantity());
                 if (progress != null && progress.isShowing()) {
                     progress.dismiss();
                 }

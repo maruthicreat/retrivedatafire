@@ -2,6 +2,7 @@ package com.example.maruthiraja.retrivedatafire;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -66,6 +67,7 @@ public class CartPayment extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_cart_payment);
         mList = (RecyclerView) findViewById(R.id.cartpaymentlist);
         itemname =  new ArrayList<String>();
@@ -107,7 +109,7 @@ public class CartPayment extends AppCompatActivity {
         ) {
             @Override
             protected void populateViewHolder(CartListHolder viewHolder, CartListGetData model, final int position) {
-                 Toast.makeText(CartPayment.this, "view", Toast.LENGTH_SHORT).show();
+                // Toast.makeText(CartPayment.this, "view", Toast.LENGTH_SHORT).show();
                 // final String value;
                 itemid.add(model.getItemid());
                 itemname.add(model.getItemname());
@@ -199,7 +201,6 @@ public class CartPayment extends AppCompatActivity {
            //System.out.println(itr1.next());
            //System.out.println(itr2.next());
            //System.out.println(itr3.next());
-
            int selectedid = rb.getCheckedRadioButtonId();
            rrb = (RadioButton) findViewById(selectedid);
            if (stBuilder.toString().equals("")) {
@@ -211,6 +212,7 @@ public class CartPayment extends AppCompatActivity {
                    String itemid = itr3.next().toString();
                    mdb.child("itemid").setValue(itemid);
                    mdb.child("itemname").setValue(itr.next().toString());
+                   mdb.child("price").setValue(itr1.next().toString());
                    mdb.child("itemimage").setValue(itr2.next().toString());
                    getrating(itemid,mdb);
                    //mdb.child("itemrating").setValue(getrating(itemid));

@@ -5,9 +5,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -57,7 +59,7 @@ public class viewItem extends AppCompatActivity
     public RatingBar ratingBar;
     private ProgressDialog progress;
     private FirebaseAuth.AuthStateListener mAuthListener;
-    DatabaseReference myRef;
+    private DatabaseReference myRef;
     boolean doubleBackToExitPressedOnce = false;
     StaggeredGridLayoutManager gridLayoutManager;
     private List<String> listitems ;
@@ -87,7 +89,7 @@ public class viewItem extends AppCompatActivity
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 if (firebaseAuth.getCurrentUser() == null){
-                    startActivity(new Intent(viewItem.this,loginactivity.class));
+                    //startActivity(new Intent(viewItem.this,loginactivity.class));
                     finish();
                 }
             }
@@ -131,7 +133,7 @@ public class viewItem extends AppCompatActivity
         searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                Toast.makeText(viewItem.this, "change", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(viewItem.this, "change", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(viewItem.this,SearchItem.class);
                 intent.putExtra("message",query);
                 startActivity(intent);
@@ -169,7 +171,7 @@ public class viewItem extends AppCompatActivity
                     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 
                         Object item = parent.getItemAtPosition(pos);
-                        Toast.makeText(viewItem.this, item.toString(), Toast.LENGTH_SHORT).show();
+                       // Toast.makeText(viewItem.this, item.toString(), Toast.LENGTH_SHORT).show();
                         if (item.toString().equals("Sort by Name"))
                         {
                             FragmentManager fragmentManager = getSupportFragmentManager();
@@ -204,85 +206,6 @@ public class viewItem extends AppCompatActivity
                     public void onNothingSelected(AdapterView<?> parent) {
                     }
                 });
-    }
-
-    private void insertprice() {
-        progress = new ProgressDialog(this);
-        progress.setTitle("Loading Items");
-        progress.setMessage("Loading...!!!");
-        progress.show();
-        mAuth.addAuthStateListener(mAuthListener);
-
-
-        firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Getdata, Holder>(
-                Getdata.class,
-                R.layout.itemrow,
-                Holder.class,
-                myRef.orderByChild("price")
-        ) {
-            @Override
-            protected void populateViewHolder(Holder viewHolder, Getdata model, int position) {
-                viewHolder.setTitle(model.getTitle());
-                viewHolder.setDescription(model.getDescription());
-                viewHolder.setPrice(model.getPrice());
-                viewHolder.setImage(getApplicationContext(), model.getImage());
-                viewHolder.setRating(model.getRating());
-                if (progress != null && progress.isShowing()) {
-                    progress.dismiss();
-                }
-            }
-
-        };
-    }
-
-    private void insetitem(String nametype) {
-        progress = new ProgressDialog(this);
-        progress.setTitle("Loading Items");
-        progress.setMessage("Loading...!!!");
-        progress.show();
-        mAuth.addAuthStateListener(mAuthListener);
-
-
-        firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Getdata, Holder>(
-                Getdata.class,
-                R.layout.itemrow,
-                Holder.class,
-                myRef.orderByChild(nametype)
-        ) {
-            @Override
-            protected void populateViewHolder(Holder viewHolder, Getdata model, int position) {
-                viewHolder.setTitle(model.getTitle());
-                viewHolder.setDescription(model.getDescription());
-                viewHolder.setPrice(model.getPrice());
-                viewHolder.setImage(getApplicationContext(),model.getImage());
-                viewHolder.setRating(model.getRating());
-                if (progress != null && progress.isShowing()) {
-                    progress.dismiss();
-                }
-            }
-
-            @Override
-            public Holder onCreateViewHolder(ViewGroup parent, int viewType) {
-                Holder viewHolder = super.onCreateViewHolder(parent, viewType);
-                viewHolder.setOnClickListener(new Holder.ClickListener() {
-                    @Override
-                    public void onItemClick(View view, int position) {
-                       // Toast.makeText(getApplicationContext(), "Item clicked at " + position, Toast.LENGTH_SHORT).show();
-                        Intent selint = new Intent(getApplicationContext(),SelectedItem.class);
-                        Intent intent = selint.putExtra("position", getRef(position).getKey());
-                        startActivity(intent);
-                    }
-
-                    @Override
-                    public void onItemLongClick(View view, int position) {
-                        Toast.makeText(getApplicationContext(), "Item long clicked at " + position, Toast.LENGTH_SHORT).show();
-                    }
-                });
-                return viewHolder;
-            }
-        };
-
-       // mList.setAdapter(firebaseRecyclerAdapter);
     }
 
     @Override
@@ -372,6 +295,7 @@ public class viewItem extends AppCompatActivity
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -381,7 +305,7 @@ public class viewItem extends AppCompatActivity
             if (doubleBackToExitPressedOnce) {
                 super.onBackPressed();
                 // Toast.makeText(this, "finish all activity", Toast.LENGTH_SHORT).show();
-                finish();
+                finishAffinity();
                 return;
             }
             this.doubleBackToExitPressedOnce = true;
@@ -438,7 +362,7 @@ public class viewItem extends AppCompatActivity
             startActivity(new Intent(viewItem.this,MyOrders.class));
 
         } else if (id == R.id.account) {
-
+            startActivity(new Intent(viewItem.this,MyAccount.class));
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {

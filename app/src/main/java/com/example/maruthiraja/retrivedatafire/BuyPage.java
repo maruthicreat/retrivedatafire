@@ -34,7 +34,7 @@ public class BuyPage extends AppCompatActivity {
         setContentView(R.layout.activity_buy_page);
         itemid = getIntent().getStringExtra("itemid");
 
-        Toast.makeText(this, "called", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "called", Toast.LENGTH_SHORT).show();
         deliverystr = (TextView) findViewById(R.id.deliveryaddrid);
         itemnamestr = (TextView) findViewById(R.id.itemlistnameid);
         sellernamestr = (TextView) findViewById(R.id.sellernameid);

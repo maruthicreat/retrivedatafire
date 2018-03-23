@@ -54,7 +54,7 @@ public class ViewMap extends FragmentActivity implements OnMapReadyCallback {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 //String value = dataSnapshot.getValue(String.class);
                 //System.out.println(value);
-                Toast.makeText(ViewMap.this, "Map entry", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(ViewMap.this, "Map entry", Toast.LENGTH_SHORT).show();
                 for (DataSnapshot ds : dataSnapshot.getChildren())
                 {
                     String Uid = ds.getKey().toString();

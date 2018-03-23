@@ -175,7 +175,7 @@ public class TestActivity extends AppCompatActivity implements GoogleApiClient.O
                 String name = (String) dataSnapshot.child("name").getValue();
                 String phone = (String) dataSnapshot.child("phone").getValue();
                 address = (String) dataSnapshot.child("Address").getValue();
-                Toast.makeText(TestActivity.this, name+phone+address, Toast.LENGTH_SHORT).show();
+               // Toast.makeText(TestActivity.this, name+phone+address, Toast.LENGTH_SHORT).show();
                 sellernamestr.setText(name);
                 phonestr.setText("Phone : "+phone);
                 shopaddstr.setText("Address :"+address);
