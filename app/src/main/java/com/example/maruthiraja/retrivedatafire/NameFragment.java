@@ -190,7 +190,7 @@ public class NameFragment extends Fragment {
             mview.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(mview.getContext(), "you clicked me!!", Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(mview.getContext(), "you clicked me!!", Toast.LENGTH_SHORT).show();
                     mClickListener.onItemClick(view,getAdapterPosition());
                 }
             });

@@ -201,6 +201,7 @@ public class TestActivity extends AppCompatActivity implements GoogleApiClient.O
                 mdb.child("itemid").setValue(itemid);
                 mdb.child("itemname").setValue(titlestr);
                 mdb.child("itemimage").setValue(image);
+                mdb.child("price").setValue(pricestr);
                 mdb.child("itemrating").setValue(rating);
                 mdb.child("paymentMode").setValue(rrb.getText());
                 if (rrb.getText().equals("Cash On Delivery") || rrb.getText().equals("Get on Shop")) {
