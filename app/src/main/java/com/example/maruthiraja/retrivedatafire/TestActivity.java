@@ -199,9 +199,10 @@ public class TestActivity extends AppCompatActivity implements GoogleApiClient.O
                 muser = FirebaseAuth.getInstance().getCurrentUser();
                 mdb = FirebaseDatabase.getInstance().getReference().child("Purchased").child(muser.getUid()).push();
                 mdb.child("itemid").setValue(itemid);
+                mdb.child("shopid").setValue(shopid);
                 mdb.child("itemname").setValue(titlestr);
                 mdb.child("itemimage").setValue(image);
-                mdb.child("price").setValue(pricestr);
+                mdb.child("price").setValue(pristr);
                 mdb.child("itemrating").setValue(rating);
                 mdb.child("paymentMode").setValue(rrb.getText());
                 if (rrb.getText().equals("Cash On Delivery") || rrb.getText().equals("Get on Shop")) {

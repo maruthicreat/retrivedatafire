@@ -54,7 +54,7 @@ public class CartPayment extends AppCompatActivity {
     private FirebaseUser muser;
     private List<String> listitems;
     private ArrayList<String>  itemname,itemprice,itemid ,itmeimage ;
-    private String rat;
+    private String rat,shopid;
     private RadioButton rrb;
     private int count = 0;
     private RadioGroup rb;
@@ -249,7 +249,9 @@ public class CartPayment extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 rat = (String) dataSnapshot.child("rating").getValue();
+                shopid = (String) dataSnapshot.child("id").getValue();
                 mdb.child("itemrating").setValue(rat);
+                mdb.child("shopid").setValue(shopid);
             }
 
             @Override

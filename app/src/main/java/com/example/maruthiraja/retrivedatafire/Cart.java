@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -75,6 +76,7 @@ public class Cart extends AppCompatActivity {
     }
 
     private void insetitem() {
+
         FirebaseRecyclerAdapter<GetCartData, CartHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<GetCartData, CartHolder>(
                 GetCartData.class,
                 R.layout.cartitemrow,
@@ -93,11 +95,21 @@ public class Cart extends AppCompatActivity {
                 viewHolder.setPrice(itemprice);
                 //viewHolder.setPrice(model.getPrice());
                 viewHolder.setImage(getApplicationContext(), itmeimage);
+                total = total + Float.parseFloat(itemprice);
+                textView.setText(total+"");
+            }
+
+
+            @Override
+            public CartHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+                final CartHolder viewHolder = super.onCreateViewHolder(parent, viewType);
                 viewHolder.button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                      //  Toast.makeText(Cart.this, getRef(position).getKey(), Toast.LENGTH_SHORT).show();
-                        myRef.child(getRef(position).getKey()).addValueEventListener(new ValueEventListener() {
+                        //notifyDataSetChanged();
+                        System.out.println("clicked position : "+ viewHolder.getAdapterPosition());
+                        //  Toast.makeText(Cart.this, getRef(position).getKey(), Toast.LENGTH_SHORT).show();
+                        myRef.child(getRef(viewHolder.getAdapterPosition()).getKey()).addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 String value = dataSnapshot.child("itemprice").getValue(String.class);
@@ -106,7 +118,7 @@ public class Cart extends AppCompatActivity {
                                     total = total - Float.parseFloat(value);
                                     textView.setText(total+"");
                                 }
-                               // Toast.makeText(Cart.this, value, Toast.LENGTH_SHORT).show();
+                                // Toast.makeText(Cart.this, value, Toast.LENGTH_SHORT).show();
                             }
 
                             @Override
@@ -115,17 +127,25 @@ public class Cart extends AppCompatActivity {
                             }
 
                         });
-                        myRef.child(getRef(position).getKey()).removeValue();
-
-                        //
-                        //Toast.makeText(Cart.this, itemprice, Toast.LENGTH_SHORT).show();
-
+                         myRef.child(getRef(viewHolder.getAdapterPosition()).getKey()).removeValue();
                     }
                 });
-                //viewHolder.setRating(model.);
-                total = total + Float.parseFloat(itemprice);
-                textView.setText(total+"");
+
+                viewHolder.setOnClickListener(new CartHolder.ClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                         Toast.makeText(getApplicationContext(), "Item clicked at " + position, Toast.LENGTH_SHORT).show();
+                        //  Toast.makeText(Cart.this, getRef(position).getKey(), Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onItemLongClick(View view, int position) {
+                        Toast.makeText(getApplicationContext(), "Item long clicked at " + position, Toast.LENGTH_SHORT).show();
+                    }
+                });
+                return viewHolder;
             }
+
 
         };
         mList.setAdapter(firebaseRecyclerAdapter);
@@ -139,7 +159,36 @@ public class Cart extends AppCompatActivity {
             super(itemView);
             mview = itemView;
             button = (Button)mview.findViewById(R.id.cartremovebtn);
+
+            mview.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(mview.getContext(), "you clicked me!!", Toast.LENGTH_SHORT).show();
+                    mClickListener.onItemClick(view,getAdapterPosition());
+                }
+            });
+            mview.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    Toast.makeText(mview.getContext(), "you Long clicked me!!", Toast.LENGTH_SHORT).show();
+                    mClickListener.onItemLongClick(view,getAdapterPosition());
+                    return true;
+                }
+            });
+
         }
+        private CartHolder.ClickListener mClickListener;
+
+
+        public interface ClickListener{
+            public void onItemClick(View view, int position);
+            public void onItemLongClick(View view, int position);
+        }
+
+        public void setOnClickListener(CartHolder.ClickListener clickListener){
+            mClickListener = clickListener;
+        }
+
 
         public void setTitleName(String title)
         {
