@@ -84,6 +84,7 @@ public class MyOrders extends AppCompatActivity {
                 String itemname = model.getItemname();
                 String itemtime = model.getPurchaseTime();
                 String itmerating = model.getItemrating();
+                System.out.println(itemid + " " +itemname + " " +itemtime + "" +itmerating);
                // mdb = FirebaseDatabase.getInstance("https://shopkeeperapp-7d95b.firebaseio.com/");
                 //mref = database.getReference("shop_details").child(itemid);
                 viewHolder.setTitleName(itemname);

@@ -39,6 +39,7 @@ public class Signup extends AppCompatActivity {
         password = (EditText) findViewById(R.id.CPass);
         progressDialog = new ProgressDialog(this);
         firebaseAuth = FirebaseAuth.getInstance();
+        System.out.println(firebaseAuth);
         mDatabase = FirebaseDatabase.getInstance().getReference("CustomerSignup");
     }
 

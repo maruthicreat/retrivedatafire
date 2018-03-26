@@ -107,7 +107,7 @@ public class Cart extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         //notifyDataSetChanged();
-                        System.out.println("clicked position : "+ viewHolder.getAdapterPosition());
+                        System.out.println("clicked position : "+ getRef(viewHolder.getAdapterPosition()));
                         //  Toast.makeText(Cart.this, getRef(position).getKey(), Toast.LENGTH_SHORT).show();
                         myRef.child(getRef(viewHolder.getAdapterPosition()).getKey()).addValueEventListener(new ValueEventListener() {
                             @Override

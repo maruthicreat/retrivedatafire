@@ -4,9 +4,9 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://C:\Users\MCA\AndroidStudioProjects\retrivedata\app\app.iml" filepath="C:\Users\MCA\AndroidStudioProjects\retrivedata\app\app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/newcustomerfire.iml" filepath="$PROJECT_DIR$/newcustomerfire.iml" />
       <module fileurl="file://C:\Users\maruthi raja\AndroidStudioProjects\retrivedatafire\newcustomerfire.iml" filepath="C:\Users\maruthi raja\AndroidStudioProjects\retrivedatafire\newcustomerfire.iml" />
       <module fileurl="file://C:\Users\maruthiraja\AndroidStudioProjects\retrivedatafire\retrivedata.iml" filepath="C:\Users\maruthiraja\AndroidStudioProjects\retrivedatafire\retrivedata.iml" />
-      <module fileurl="file://$PROJECT_DIR$/retrivedatafire.iml" filepath="$PROJECT_DIR$/retrivedatafire.iml" />
       <module fileurl="file://C:\Users\maruthiraja\AndroidStudioProjects\newcustomerfire\retrivedatafire.iml" filepath="C:\Users\maruthiraja\AndroidStudioProjects\newcustomerfire\retrivedatafire.iml" />
       <module fileurl="file://C:\Users\MCA\AndroidStudioProjects\retrivedata\retrivedatafire.iml" filepath="C:\Users\MCA\AndroidStudioProjects\retrivedata\retrivedatafire.iml" />
     </modules>
