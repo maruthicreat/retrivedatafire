@@ -26,6 +26,9 @@ public class MyAccount extends AppCompatActivity {
        // Toast.makeText(getApplicationContext(), "okok", Toast.LENGTH_SHORT).show();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         final String email = user.getEmail();
+        System.out.println("user phone number : "+user.getPhoneNumber());
+        System.out.println("user name : "+user.getDisplayName());
+
         //Toast.makeText(getContext(), email, Toast.LENGTH_SHORT).show();
         mdatabase = FirebaseDatabase.getInstance().getReference().child("CustomerSignup");
         mdatabase.addValueEventListener(new ValueEventListener() {

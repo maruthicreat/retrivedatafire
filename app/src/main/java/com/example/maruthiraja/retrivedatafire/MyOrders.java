@@ -103,7 +103,6 @@ public class MyOrders extends AppCompatActivity {
                        // startActivity(intent);
                     }
                 });
-                //viewHolder.setRating(model.);
             }
 
         };

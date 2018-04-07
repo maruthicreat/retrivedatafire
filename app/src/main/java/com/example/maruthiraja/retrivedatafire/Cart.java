@@ -146,7 +146,6 @@ public class Cart extends AppCompatActivity {
                 return viewHolder;
             }
 
-
         };
         mList.setAdapter(firebaseRecyclerAdapter);
     }
