@@ -12,7 +12,6 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
@@ -28,7 +27,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
-
 import java.util.Calendar;
 
 public class TestActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener{
@@ -37,7 +35,7 @@ public class TestActivity extends AppCompatActivity implements GoogleApiClient.O
             totalamtstr,phonestr,shopaddstr;
     Button pickaddbtn;
     ImageView itemimg;
-    private DatabaseReference mdatabase,mdb;
+    private DatabaseReference mdatabase,mdb,ext;
     private FirebaseUser muser;
     private String itemid;
     private String shopid;
@@ -91,6 +89,7 @@ public class TestActivity extends AppCompatActivity implements GoogleApiClient.O
         rb = (RadioGroup) findViewById(R.id.paymentgroup);
         mdatabase = FirebaseDatabase.getInstance().getReference().child("shop_details");
         mdb = FirebaseDatabase.getInstance().getReference().child("ShopkeeperSignup");
+        ext = FirebaseDatabase.getInstance().getReference().child("allpurchase").push();
         mdatabase.child(itemid).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -198,16 +197,26 @@ public class TestActivity extends AppCompatActivity implements GoogleApiClient.O
             if (rrb != null) {
                 muser = FirebaseAuth.getInstance().getCurrentUser();
                 mdb = FirebaseDatabase.getInstance().getReference().child("Purchased").child(muser.getUid()).push();
+                ext.child("key").setValue(mdb.getKey());
                 mdb.child("itemid").setValue(itemid);
+                ext.child("itemid").setValue(itemid);
                 mdb.child("shopid").setValue(shopid);
+                ext.child("shopid").setValue(shopid);
                 mdb.child("itemname").setValue(titlestr);
+                ext.child("itemname").setValue(titlestr);
                 mdb.child("itemimage").setValue(image);
+                ext.child("itemimage").setValue(image);
                 mdb.child("price").setValue(pristr);
+                ext.child("price").setValue(pristr);
                 mdb.child("itemrating").setValue(rating);
+                ext.child("itemrating").setValue(rating);
                 mdb.child("paymentMode").setValue(rrb.getText());
+                ext.child("paymentMode").setValue(rrb.getText());
                 if (rrb.getText().equals("Cash On Delivery") || rrb.getText().equals("Get on Shop")) {
                     mdb.child("amountpayable").setValue(totalamt);
+                    ext.child("amountpayable").setValue(totalamt);
                     mdb.child("ispayed").setValue("1");
+                    ext.child("ispayed").setValue("1");
                     if (rrb.getText().equals("Cash On Delivery")) {
                         Toast.makeText(this, "Cash On Delivery Accepted Your Order will be delivered within 2 hrs", Toast.LENGTH_SHORT).show();
                     } else {
@@ -215,13 +224,19 @@ public class TestActivity extends AppCompatActivity implements GoogleApiClient.O
                     }
                 } else {
                     mdb.child("AmountPayable").setValue("0");
+                    ext.child("AmountPayable").setValue("0");
                     mdb.child("ispayed").setValue("1");
+                    ext.child("ispayed").setValue("1");
                     Toast.makeText(this, "Online Payment Successful Your Order will be delivered within 2 hrs", Toast.LENGTH_SHORT).show();
                 }
                 mdb.child("orderat").setValue(stBuilder.toString());
+                ext.child("orderat").setValue(stBuilder.toString());
                 mdb.child("lat").setValue(lat);
+                ext.child("lat").setValue(lat);
                 mdb.child("long").setValue(log);
+                ext.child("long").setValue(log);
                 mdb.child("purchaseTime").setValue(Calendar.getInstance().getTime().toString());
+                ext.child("purchaseTime").setValue(Calendar.getInstance().getTime().toString());
                 finish();
             } else {
                 Toast.makeText(this, "Please Select your Payment Option...!!!", Toast.LENGTH_SHORT).show();

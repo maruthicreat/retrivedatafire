@@ -50,7 +50,7 @@ public class CartPayment extends AppCompatActivity {
     private DatabaseReference myRef, mref;
     private float total = 0,tax = 0;
     private String lat,log;
-    private DatabaseReference mdatabase,mdb;
+    private DatabaseReference mdatabase,mdb,ext;
     private FirebaseUser muser;
     private List<String> listitems;
     private ArrayList<String>  itemname,itemprice,itemid ,itmeimage ;
@@ -94,6 +94,7 @@ public class CartPayment extends AppCompatActivity {
         myRef = database.getReference("cart").child(cuser.getUid());
         mdb = FirebaseDatabase.getInstance().getReference().child("ShopkeeperSignup");
         mdatabase = FirebaseDatabase.getInstance().getReference().child("shop_details");
+
         insetitem();
     }
 
@@ -196,7 +197,7 @@ public class CartPayment extends AppCompatActivity {
        Iterator itr1 = itemprice.iterator();
        Iterator itr2 = itmeimage.iterator();
        Iterator itr3 = itemid.iterator();
-       while (itr.hasNext() & itr1.hasNext() & itr2.hasNext() & itr3.hasNext()) {
+
           // System.out.println(itr.next());
            //System.out.println(itr1.next());
            //System.out.println(itr2.next());
@@ -207,39 +208,60 @@ public class CartPayment extends AppCompatActivity {
                Toast.makeText(this, "Please Select the Delivery Address..!!!", Toast.LENGTH_SHORT).show();
            } else {
                if (rrb != null) {
-                   muser = FirebaseAuth.getInstance().getCurrentUser();
-                   mdb = FirebaseDatabase.getInstance().getReference().child("Purchased").child(muser.getUid()).push();
-                   String itemid = itr3.next().toString();
-                   mdb.child("itemid").setValue(itemid);
-                   mdb.child("itemname").setValue(itr.next().toString());
-                   mdb.child("price").setValue(itr1.next().toString());
-                   mdb.child("itemimage").setValue(itr2.next().toString());
-                   getrating(itemid,mdb);
-                   //mdb.child("itemrating").setValue(getrating(itemid));
-                   mdb.child("paymentMode").setValue(rrb.getText());
-                   if (rrb.getText().equals("Cash On Delivery") || rrb.getText().equals("Get on Shop")) {
-                       mdb.child("amountpayable").setValue(total + "");
-                       mdb.child("ispayed").setValue("1");
-                       if (rrb.getText().equals("Cash On Delivery")) {
-                           Toast.makeText(this, "Cash On Delivery Accepted Your Order will be delivered within 2 hrs", Toast.LENGTH_SHORT).show();
+                   while (itr.hasNext() & itr1.hasNext() & itr2.hasNext() & itr3.hasNext()) {
+                       muser = FirebaseAuth.getInstance().getCurrentUser();
+                       mdb = FirebaseDatabase.getInstance().getReference().child("Purchased").child(muser.getUid()).push();
+                       ext = FirebaseDatabase.getInstance().getReference().child("allpurchase").push();
+                       ext.child("key").setValue(mdb.getKey());
+                       String itemid = itr3.next().toString();
+                       mdb.child("itemid").setValue(itemid);
+                       ext.child("itemid").setValue(itemid);
+                       String itmn = itr.next().toString();
+                       mdb.child("itemname").setValue(itmn);
+                       ext.child("itemname").setValue(itmn);
+                       String pric = itr1.next().toString();
+                       mdb.child("price").setValue(pric);
+                       ext.child("price").setValue(pric);
+                       String itmimg = itr2.next().toString();
+                       mdb.child("itemimage").setValue(itmimg);
+                       ext.child("itemimage").setValue(itmimg);
+                       getrating(itemid, mdb);
+                       getrating(itemid, ext);
+                       //mdb.child("itemrating").setValue(getrating(itemid));
+                       mdb.child("paymentMode").setValue(rrb.getText());
+                       ext.child("paymentMode").setValue(rrb.getText());
+                       if (rrb.getText().equals("Cash On Delivery") || rrb.getText().equals("Get on Shop")) {
+                           mdb.child("amountpayable").setValue(total + "");
+                           ext.child("amountpayable").setValue(total + "");
+                           mdb.child("ispayed").setValue("1");
+                           ext.child("ispayed").setValue("1");
+                           if (rrb.getText().equals("Cash On Delivery")) {
+                               Toast.makeText(this, "Cash On Delivery Accepted Your Order will be delivered within 2 hrs", Toast.LENGTH_SHORT).show();
+                           } else {
+                               Toast.makeText(this, "Please Collect your Order on the Shop . ", Toast.LENGTH_SHORT).show();
+                           }
                        } else {
-                           Toast.makeText(this, "Please Collect your Order on the Shop . ", Toast.LENGTH_SHORT).show();
+                           mdb.child("AmountPayable").setValue("0");
+                           ext.child("AmountPayable").setValue("0");
+                           mdb.child("ispayed").setValue("1");
+                           ext.child("ispayed").setValue("1");
+                           Toast.makeText(this, "Online Payment Successful Your Order will be delivered within 2 hrs", Toast.LENGTH_SHORT).show();
                        }
-                   } else {
-                       mdb.child("AmountPayable").setValue("0");
-                       mdb.child("ispayed").setValue("1");
-                       Toast.makeText(this, "Online Payment Successful Your Order will be delivered within 2 hrs", Toast.LENGTH_SHORT).show();
+                       mdb.child("orderat").setValue(stBuilder.toString());
+                       ext.child("orderat").setValue(stBuilder.toString());
+                       mdb.child("lat").setValue(lat);
+                       ext.child("lat").setValue(lat);
+                       mdb.child("long").setValue(log);
+                       ext.child("long").setValue(log);
+                       mdb.child("purchaseTime").setValue(Calendar.getInstance().getTime().toString());
+                       ext.child("purchaseTime").setValue(Calendar.getInstance().getTime().toString());
                    }
-                   mdb.child("orderat").setValue(stBuilder.toString());
-                   mdb.child("lat").setValue(lat);
-                   mdb.child("long").setValue(log);
-                   mdb.child("purchaseTime").setValue(Calendar.getInstance().getTime().toString());
                    finish();
+
                } else {
                    Toast.makeText(this, "Please Select your Payment Option...!!!", Toast.LENGTH_SHORT).show();
                }
            }
-       }
     }
 
     public void getrating(String id, final DatabaseReference mdb)
